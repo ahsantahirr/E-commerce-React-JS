@@ -1,5 +1,8 @@
 import React from 'react'
 import test1 from '../assets/test1.jpeg'
+import test2 from '../assets/test2.jpeg'
+import test3 from '../assets/test3.jpeg'
+
 function About() {
   return (
     <>
@@ -31,29 +34,29 @@ function About() {
       <section>
         <h2 className="text-2xl font-semibold mb-4">Meet Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-white p-4 rounded-lg shadow">
+          <div className="bg-white p-4 rounded-full shadow">
             <img
               src={test1}
               alt="Team Member"
-              className="rounded-full mb-4"
+              className="rounded-full mb-4 object-cover h-36 w-36"
             />
-            <h3 className="font-bold">John Doe</h3>
+            <h3 className="font-bold">Mr Harron</h3>
             <p className="text-gray-600">CEO</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
-            <img
-              src="https://via.placeholder.com/150"
+          <img
+              src={test2}
               alt="Team Member"
-              className="rounded-full mb-4"
+              className="rounded-full mb-4 object-cover h-36 w-36"
             />
             <h3 className="font-bold">Jane Smith</h3>
             <p className="text-gray-600">CTO</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
-            <img
-              src="https://via.placeholder.com/150"
+          <img
+              src={test3}
               alt="Team Member"
-              className="rounded-full mb-4"
+              className="rounded-full mb-4 object-cover h-36 w-36"
             />
             <h3 className="font-bold">Alice Johnson</h3>
             <p className="text-gray-600">Marketing Manager</p>
@@ -64,7 +67,7 @@ function About() {
     <footer className="bg-white shadow mt-10">
       <div className="max-w-7xl mx-auto px-4 py-6 text-center">
         <p className="text-gray-600">
-          © 2023 [Your Company Name]. All rights reserved.
+          © 2024 [ReactStore]. All rights reserved.
         </p>
       </div>
     </footer>
