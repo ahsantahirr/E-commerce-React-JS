@@ -3,8 +3,9 @@ import logo from '../assets/Logo.jpg'
 import { Link } from 'react-router-dom'
 function Signup() {
     return (
-        <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 h-full overflow-hidden
-    "> <div className="text-center mb-12 flex justify-center">
+        <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 h-full 
+    ">
+            <div className="text-center mt-10 flex justify-center">
                 <a
                     href="#"
                     className="flex items-center mb-6 text-2xl font-semibold text-gray-900 "
@@ -21,8 +22,8 @@ function Signup() {
 
                 <form>
                     <div className="space-y-6">
-                    <div>
-                            <label className="text-gray-800 text-sm mb-2 block">Full Name</label>
+                        <div>
+                            <label className="text-gray-800 text-sm mb-2 block font-bold ">Full Name</label>
                             <input
                                 name="email"
                                 type="text"
@@ -31,7 +32,7 @@ function Signup() {
                             />
                         </div>
                         <div>
-                            <label className="text-gray-800 text-sm mb-2 block">Email Id</label>
+                            <label className="text-gray-800 text-sm mb-2 block font-bold">Email Id</label>
                             <input
                                 name="email"
                                 type="text"
@@ -40,7 +41,7 @@ function Signup() {
                             />
                         </div>
                         <div>
-                            <label className="text-gray-800 text-sm mb-2 block">Password</label>
+                            <label className="text-gray-800 text-sm mb-2 block font-bold">Password</label>
                             <input
                                 name="password"
                                 type="password"
@@ -49,7 +50,7 @@ function Signup() {
                             />
                         </div>
                         <div>
-                            <label className="text-gray-800 text-sm mb-2 block">
+                            <label className="text-gray-800 text-sm mb-2 block font-bold">
                                 Confirm Password
                             </label>
                             <input
