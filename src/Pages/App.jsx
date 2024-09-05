@@ -149,7 +149,9 @@ function App() {
     .filter((data) =>
       data.title.toLowerCase().includes(search.toLowerCase())
     )
-    .sort((a, b) => a.title.localeCompare(b.title)); // Sort after filtering
+    .sort((a, b) => a.title.localeCompare(b.title))
+      ||
+        (category === "" || data.title.toLowerCase().includes(category.toLowerCase()))
 
   return (
     <>

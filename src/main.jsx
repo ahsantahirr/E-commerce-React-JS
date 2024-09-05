@@ -7,6 +7,8 @@ import About from "./Pages/About"
 import App from './Pages/App';
 import ContactUs from './Pages/Contact';
 import Productdetails from './Pages/Productdetails';
+import Signin from './Pages/Signin';
+import Signup from './Pages/Signup';
 
 
 const router = createBrowserRouter(
@@ -15,7 +17,14 @@ const router = createBrowserRouter(
       <Route path = '' element={<App />}/>
       <Route path='about' element={<About />} />
       <Route path='contact' element={<ContactUs />} />
+      <Route path='signin' element={<Signin />} />
+      <Route path='signup' element={<Signup />} />
+   
+
+
+      
       <Route path='/product/:id' element={<Productdetails/>}/>
+      
     </Route>
   )
 )
