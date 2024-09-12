@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/Logo.jpg'
 import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router";
+import { createUserWithEmailAndPassword} from 'firebase/auth'
+import {auth} from '../firebaseutils'
 function Signup() {
+    const navigate = useNavigate();
+    const [email , setEmail] = useState("");
+    const [password, setPassword] = useState("")
+
+    function onsubmit(e){
+        e.preventDefault();
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(()=>{
+            navigate("/")
+        })
+        .catch((err)=>alert(err))
+    }
+    
     return (
         <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 h-full 
     ">
@@ -20,15 +36,17 @@ function Signup() {
             </div>
             <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
 
-                <form>
+                <form
+                onSubmit={onsubmit}>
                     <div className="space-y-6">
                         <div>
                             <label className="text-gray-800 text-sm mb-2 block font-bold ">Full Name</label>
                             <input
-                                name="email"
+                                name="userName"
                                 type="text"
                                 className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
-                                placeholder="Enter email"
+                                placeholder="Enter your Name"
+                                
                             />
                         </div>
                         <div>
@@ -38,6 +56,8 @@ function Signup() {
                                 type="text"
                                 className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
                                 placeholder="Enter email"
+                                value={email}
+                                onChange={(e)=>setEmail(e.target.value)}
                             />
                         </div>
                         <div>
@@ -47,6 +67,8 @@ function Signup() {
                                 type="password"
                                 className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
                                 placeholder="Enter password"
+                                value={password}
+                                onChange={(e)=>setPassword(e.target.value)}
                             />
                         </div>
                         <div>
@@ -83,7 +105,7 @@ function Signup() {
                     </div>
                     <div className="!mt-12">
                         <button
-                            type="button"
+                            type="submit"
                             className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-amber-500 hover:bg-amber-600 focus:outline-none"
                         >
                             Create an account
@@ -98,6 +120,14 @@ function Signup() {
                             Login here
                         </Link>
                     </p>
+                    <div className="!mt-12">
+                        <button
+                            type="button"
+                            className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-amber-500 hover:bg-amber-600 focus:outline-none"
+                        >
+                           Signup with Google
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

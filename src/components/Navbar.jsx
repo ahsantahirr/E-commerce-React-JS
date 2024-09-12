@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import logo from '../assets/Logo.jpg';
 import { NavLink } from 'react-router-dom';
-
+import { userContext } from '../Contexts/userContext'
+import { signOut } from "firebase/auth";
+import { auth } from '../firebaseutils';
 function Navbar({ onChange, onCategoryChange }) {
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
+    const { user } = useContext(userContext)
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
-
+    async function signout() {
+        await signOut(auth)
+    }
     return (
         <nav className="bg-amber-600 border-gray-200 sticky z-50 top-0">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -18,9 +22,13 @@ function Navbar({ onChange, onCategoryChange }) {
                 </NavLink>
 
                 <div className="flex md:order-2">
-                    <NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
+                    {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
+                        SignOut
+                    </button>):(<NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
                         SignIn
-                    </NavLink>
+                    </NavLink>)}
+
+
                     <div className="relative md:block">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -70,6 +78,9 @@ function Navbar({ onChange, onCategoryChange }) {
                             ${isActive ? " text-amber-400 " : "text-white"} md:hover:text-amber-500 md:p-0 hover:bg-gray-700`}>
                                 Contact Us
                             </NavLink>
+                        </li>
+                        <li>{user.isLogin ? <p className="text-white">{user.email}</p> : <p>no user</p>}
+
                         </li>
                     </ul>
                 </div>

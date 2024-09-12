@@ -9,28 +9,31 @@ import ContactUs from './Pages/Contact';
 import Productdetails from './Pages/Productdetails';
 import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
+import UserContextProvider from './Contexts/userContext';
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route path = '' element={<App />}/>
+      <Route path='' element={<App />} />
       <Route path='about' element={<About />} />
       <Route path='contact' element={<ContactUs />} />
       <Route path='signin' element={<Signin />} />
       <Route path='signup' element={<Signup />} />
-   
 
 
-      
-      <Route path='/product/:id' element={<Productdetails/>}/>
-      
+
+
+      <Route path='/product/:id' element={<Productdetails />} />
+
     </Route>
   )
 )
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
   </StrictMode>
 );
