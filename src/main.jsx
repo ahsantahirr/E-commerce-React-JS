@@ -10,7 +10,7 @@ import Productdetails from './Pages/Productdetails';
 import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
 import UserContextProvider from './Contexts/userContext';
-
+import ThemeContextProvider from './Contexts/Themecontext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,10 +20,6 @@ const router = createBrowserRouter(
       <Route path='contact' element={<ContactUs />} />
       <Route path='signin' element={<Signin />} />
       <Route path='signup' element={<Signup />} />
-
-
-
-
       <Route path='/product/:id' element={<Productdetails />} />
 
     </Route>
@@ -32,8 +28,11 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UserContextProvider>
-      <RouterProvider router={router} />
-    </UserContextProvider>
+    <ThemeContextProvider>
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
+    </ThemeContextProvider>
+
   </StrictMode>
 );

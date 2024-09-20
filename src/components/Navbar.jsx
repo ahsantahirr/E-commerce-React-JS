@@ -4,7 +4,12 @@ import { NavLink } from 'react-router-dom';
 import { userContext } from '../Contexts/userContext'
 import { signOut } from "firebase/auth";
 import { auth } from '../firebaseutils';
+import { themeContext } from '../Contexts/Themecontext';
+import { Button } from '@material-tailwind/react';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Badge } from 'antd';
 function Navbar({ onChange, onCategoryChange }) {
+    const { theme, setTheme } = useContext(themeContext)
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const { user } = useContext(userContext)
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -24,10 +29,18 @@ function Navbar({ onChange, onCategoryChange }) {
                 <div className="flex md:order-2">
                     {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
                         SignOut
-                    </button>):(<NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
+                    </button>) : (<NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
                         SignIn
                     </NavLink>)}
-
+                    <Button onClick={() => {
+                        if (theme === true) {
+                            setTheme(false);
+                        } else {
+                            setTheme(true);
+                        }
+                    }}>
+                        Toggle Theme
+                    </Button>
 
                     <div className="relative md:block">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -44,7 +57,9 @@ function Navbar({ onChange, onCategoryChange }) {
                             onChange={onChange}
                         />
                     </div>
-
+                    <Badge count={5} className="mt-2">
+                    <ShoppingCartOutlined className='text-white' style={{fontSize:30}}/>
+                    </Badge>
                     <button
                         type="button"
                         className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-amber-400 rounded-lg md:hidden hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600"
