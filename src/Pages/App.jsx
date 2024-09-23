@@ -6,7 +6,7 @@ import EcommerceCard from '../components/Card';
 import { useOutletContext } from 'react-router-dom';
 import CategoryChip from '../components/CategoryChip';
 import { themeContext } from '../Contexts/Themecontext';
-
+import { Pagination } from 'antd';
 function App() {
   const [product, setProduct] = useState([]);
   const { search, category } = useOutletContext();
@@ -14,21 +14,26 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState('All');
   const { theme } = useContext(themeContext)
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(20);
+  const [total, setTotal] = useState(20);
 
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data
     const url =
       choosenCategory === 'All'
-        ? 'https://dummyjson.com/products'
+        ? `https://dummyjson.com/products?limit=30&skip=${skip}`
         : `https://dummyjson.com/products/category/${choosenCategory}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.products);
+        setTotal(data.total);
+
         setLoading(false);
       })
       .catch(() => setLoading(false)); // Set loading to false even if fetch fails
-  }, [choosenCategory]);
+  }, [choosenCategory, skip]);
 
   useEffect(() => {
     setLoading(true);
@@ -66,7 +71,7 @@ function App() {
         </div>
       ) : (
         <>
-          <div className={`flex flex-wrap mt-10 ml-4 ${theme?("bg-black text-white"):("bg-white")} `}>
+          <div className={`flex flex-wrap mt-10 ml-4 ${theme ? ("bg-black text-white") : ("bg-white")} `}>
             <CategoryChip
               onClick={() => setChoosenCategory('All')}
               isChosen={choosenCategory === 'All'}
@@ -82,10 +87,11 @@ function App() {
             ))}
           </div>
 
-          <div className={`flex flex-wrap gap-5 justify-center mt-10 shadow-2xl ${theme?("bg-black"):("bg-white")}`}>
+          <div className={`flex flex-wrap gap-5 justify-center mt-10 shadow-2xl ${theme ? ("bg-black") : ("bg-white")}`}>
             {filteredProducts.length > 0 ? (
               filteredProducts.map((data) => (
                 <EcommerceCard
+                  product={data}
                   ID={data.id}
                   key={data.id}
                   title={data.title}
@@ -98,7 +104,17 @@ function App() {
             ) : (
               <p>No products found</p>
             )}
+            <Pagination
+            
+             onChange={(num) => {
+              setSkip((num - 1) * 20);
+            }}
+            defaultCurrent={1}
+            pageSize={20}
+            total={total}
+          />
           </div>
+
         </>
       )}
     </>
