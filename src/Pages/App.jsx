@@ -17,7 +17,7 @@ function App() {
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(20);
   const [total, setTotal] = useState(20);
-
+  const [current, setCurrent] = useState(1);
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data
     const url =
@@ -108,7 +108,9 @@ function App() {
             
              onChange={(num) => {
               setSkip((num - 1) * 20);
+              setCurrent(num);
             }}
+            current={current}
             defaultCurrent={1}
             pageSize={20}
             total={total}
