@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 
 export function ContactSection14() {
+  const [formData, setFormData] = useState({
+    name: "",
+    lastName:"",
+    email: "",
+    message: ""
+  })
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = { ...formData };
+    const encodedTxt = encodeURIComponent(
+      `Name: ${formData.name+formData.lastName}\nE-mail: ${formData.email}\nMessage: ${formData.message}`
+    );
+    
+    window.open(`https://wa.me/923428180120?text=${encodedTxt}`, "_blank");
+    console.log(userData);
+  };
+  
   return (
     <section className="px-8 py-8 lg:py-16">
       <div className="container mx-auto text-center">
@@ -25,12 +52,13 @@ export function ContactSection14() {
           eager to hear from you.
         </Typography>
         <div className="grid grid-cols-1 gap-x-12 gap-y-6 lg:grid-cols-2 items-start">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.1874778581887!2d67.08742367443192!3d24.92568244264645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f60a0781265%3A0x2befaba123014ab1!2sSMIT%20Gulshan%20Campus!5e0!3m2!1sen!2s!4v1725482082042!5m2!1sen!2s" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"  className="w-full h-full lg:max-h-[510px]"></iframe>
-        
-          
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.1874778581887!2d67.08742367443192!3d24.92568244264645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f60a0781265%3A0x2befaba123014ab1!2sSMIT%20Gulshan%20Campus!5e0!3m2!1sen!2s!4v1725482082042!5m2!1sen!2s" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="w-full h-full lg:max-h-[510px]"></iframe>
+
+
           <form
             action="#"
             className="flex flex-col gap-4 lg:max-w-sm"
+            onSubmit={handleSubmit}
           >
             <Typography
               variant="small"
@@ -58,8 +86,10 @@ export function ContactSection14() {
                   color="gray"
                   size="lg"
                   placeholder="First Name"
-                  name="first-name"
+                  name="name"
                   className="focus:border-t-gray-900 p-2"
+                  value={formData.name}
+                  onChange={handleChange}
                   containerProps={{
                     className: "min-w-full",
                   }}
@@ -79,8 +109,10 @@ export function ContactSection14() {
                   color="gray"
                   size="lg"
                   placeholder="Last Name"
-                  name="last-name"
+                  name="lastName"
                   className="focus:border-t-gray-900 p-2"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   containerProps={{
                     className: "!min-w-full",
                   }}
@@ -93,16 +125,19 @@ export function ContactSection14() {
             <div>
               <Typography
                 variant="small"
-                className="mb-2 text-left font-medium !text-gray-900 " 
+                className="mb-2 text-left font-medium !text-gray-900 "
               >
-                Your Email
+              Your Email
               </Typography>
               <Input
                 color="gray"
                 size="lg"
-                placeholder="name@email.com"
+                placeholder="email"
                 name="email"
+                type="email"
                 className="focus:border-t-gray-900 p-2"
+                value={formData.phoneNumber}
+                onChange={handleChange}
                 containerProps={{
                   className: "!min-w-full",
                 }}
@@ -124,6 +159,8 @@ export function ContactSection14() {
                 placeholder="Message"
                 name="message"
                 className="focus:border-t-gray-900"
+                value={formData.message}
+                onChange={handleChange}
                 containerProps={{
                   className: "!min-w-full",
                 }}
@@ -132,7 +169,7 @@ export function ContactSection14() {
                 }}
               />
             </div>
-            <Button className="bg-amber-500 p-3 hover:bg-amber-600">
+            <Button className="bg-amber-500 p-3 hover:bg-amber-600" type="submit">
               Send message
             </Button>
           </form>
