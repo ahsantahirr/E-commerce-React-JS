@@ -6,7 +6,7 @@ import EcommerceCard from '../components/Card';
 import { useOutletContext } from 'react-router-dom';
 import CategoryChip from '../components/CategoryChip';
 import { themeContext } from '../Contexts/Themecontext';
-import { Pagination } from 'antd';
+import { Pagination, ConfigProvider } from 'antd';
 function App() {
   const [product, setProduct] = useState([]);
   const { search, category } = useOutletContext();
@@ -18,6 +18,7 @@ function App() {
   const [limit, setLimit] = useState(20);
   const [total, setTotal] = useState(20);
   const [current, setCurrent] = useState(1);
+  const [page, setPage] = useState("amber-400")
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data
     const url =
@@ -104,8 +105,20 @@ function App() {
             ) : (
               <p>No products found</p>
             )}
-            <Pagination
-            
+            <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#fbbf24', // Amber-400
+          paginationItemActiveBg: '#ffffff', // Background of active pagination item
+          paginationItemActiveColor: '#fbbf24', // Text color of active pagination item
+        },
+      }}
+    >
+      <Pagination
+            className='p-4 hover:bg-amber-100'
+            itemLinkBg="#ffffff"
+            itemActiveBg="#ffffff"
+            itemActiveColor="rgba(251, 191, 36, 1)"
              onChange={(num) => {
               setSkip((num - 1) * 20);
               setCurrent(num);
@@ -115,6 +128,8 @@ function App() {
             pageSize={20}
             total={total}
           />
+    </ConfigProvider>
+            
           </div>
 
         </>

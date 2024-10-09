@@ -17,13 +17,13 @@ function EcommerceCard({ title, image, price, description, ratings, ID, product 
 
   return (
 
-    <Card className={`w-96 h-full shadow-2xl ${theme ? ("bg-black text-white") : ("bg-white")}`}  >
+    <Card className={`w-96 h-full shadow-2xl cursor-pointer ${theme ? ("bg-black text-white") : ("bg-white")}`}  >
       <Link to={`/product/${ID}`}>
         <CardHeader shadow={false} floated={false} className="h-96">
           <img
             src={image}
             alt="card-image"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
           />
         </CardHeader>
         <CardBody>

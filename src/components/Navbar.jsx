@@ -63,7 +63,7 @@ function Navbar({ onChange, onCategoryChange }) {
                     </div>
                     <Link to="cart">
                     <Badge count={cartItems.length} className="mt-2">
-                    <ShoppingCartOutlined className='text-white' style={{fontSize:30}}/>
+                    <ShoppingCartOutlined className='text-white animate-pulse' style={{fontSize:30}}/>
                     </Badge>
                     </Link>
                     <button
