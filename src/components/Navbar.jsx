@@ -5,8 +5,8 @@ import { userContext } from '../Contexts/userContext'
 import { signOut } from "firebase/auth";
 import { auth } from '../firebaseutils';
 import { themeContext } from '../Contexts/Themecontext';
-import { Button } from '@material-tailwind/react';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Button, TimelineIcon } from '@material-tailwind/react';
+import { ShoppingCartOutlined, MoonOutlined, MoonFilled } from '@ant-design/icons';
 import { CartContext } from '../Contexts/Cartcontext'
 
 import { Badge } from 'antd';
@@ -25,7 +25,7 @@ function Navbar({ onChange, onCategoryChange }) {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className=" h-8" alt="ReactStore Logo" />
-                    <span className="self-center text-sm sm:text-2xl font-semibold whitespace-nowrap text-white">
+                    <span className="self-center text-xs sm:text-2xl font-semibold whitespace-nowrap text-white">
                         ReactStore
                     </span>
                 </NavLink>
@@ -33,7 +33,7 @@ function Navbar({ onChange, onCategoryChange }) {
                 <div className="flex md:order-2">
                     {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
                         SignOut
-                    </button>) : (<NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
+                    </button>) : (<NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium  text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block">
                         SignIn
                     </NavLink>)}
                     <Button onClick={() => {
@@ -43,7 +43,7 @@ function Navbar({ onChange, onCategoryChange }) {
                             setTheme(true);
                         }
                     }}>
-                        
+                        {theme?<MoonFilled style={{fontSize:20}}/>:<MoonOutlined style={{fontSize:20}}/>}
                     </Button>
 
                     <div className="relative md:block">
@@ -99,6 +99,11 @@ function Navbar({ onChange, onCategoryChange }) {
                             ${isActive ? " text-amber-400 " : "text-white"} md:hover:text-amber-500 md:p-0 hover:bg-gray-700`}>
                                 Contact Us
                             </NavLink>
+                        </li>
+                        <li>
+                        <NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden">
+                        SignIn
+                    </NavLink>
                         </li>
                         <li>{user.isLogin ? <p className="text-white">{user.email}</p> : <p>no user</p>}
 

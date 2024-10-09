@@ -72,7 +72,7 @@ function App() {
         </div>
       ) : (
         <>
-          <div className={`flex flex-wrap mt-10 ml-4 ${theme ? ("bg-black text-white") : ("bg-white")} `}>
+          <div className={`flex flex-wrap p-4  ${theme ? ("bg-black text-white") : ("bg-white")} `}>
             <CategoryChip
               onClick={() => setChoosenCategory('All')}
               isChosen={choosenCategory === 'All'}
@@ -88,7 +88,7 @@ function App() {
             ))}
           </div>
 
-          <div className={`flex flex-wrap gap-5 justify-center mt-10 shadow-2xl ${theme ? ("bg-black") : ("bg-white")}`}>
+          <div className={`flex flex-wrap p-4 gap-5 justify-center  shadow-2xl ${theme ? ("bg-black") : ("bg-white")}`}>
             {filteredProducts.length > 0 ? (
               filteredProducts.map((data) => (
                 <EcommerceCard
@@ -106,30 +106,30 @@ function App() {
               <p>No products found</p>
             )}
             <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#fbbf24', // Amber-400
-          paginationItemActiveBg: '#ffffff', // Background of active pagination item
-          paginationItemActiveColor: '#fbbf24', // Text color of active pagination item
-        },
-      }}
-    >
-      <Pagination
-            className='p-4 hover:bg-amber-100'
-            itemLinkBg="#ffffff"
-            itemActiveBg="#ffffff"
-            itemActiveColor="rgba(251, 191, 36, 1)"
-             onChange={(num) => {
-              setSkip((num - 1) * 20);
-              setCurrent(num);
-            }}
-            current={current}
-            defaultCurrent={1}
-            pageSize={20}
-            total={total}
-          />
-    </ConfigProvider>
-            
+              theme={{
+                token: {
+                  colorPrimary: '#fbbf24', // Amber-400
+                  paginationItemActiveBg: '#ffffff', // Background of active pagination item
+                  paginationItemActiveColor: '#fbbf24', // Text color of active pagination item
+                },
+              }}
+            >
+              <Pagination
+                className='p-4 bg-amber-100'
+                itemLinkBg="#ffffff"
+                itemActiveBg="#ffffff"
+                itemActiveColor="rgba(251, 191, 36, 1)"
+                onChange={(num) => {
+                  setSkip((num - 1) * 20);
+                  setCurrent(num);
+                }}
+                current={current}
+                defaultCurrent={1}
+                pageSize={20}
+                total={total}
+              />
+            </ConfigProvider>
+
           </div>
 
         </>

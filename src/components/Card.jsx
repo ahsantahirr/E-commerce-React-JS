@@ -17,7 +17,7 @@ function EcommerceCard({ title, image, price, description, ratings, ID, product 
 
   return (
 
-    <Card className={`w-96 h-full shadow-2xl cursor-pointer ${theme ? ("bg-black text-white") : ("bg-white")}`}  >
+    <Card className={`w-96 h-full shadow-xl cursor-pointer ${theme ? ("bg-black text-white") : ("bg-white")}`}  >
       <Link to={`/product/${ID}`}>
         <CardHeader shadow={false} floated={false} className="h-96">
           <img
@@ -28,7 +28,7 @@ function EcommerceCard({ title, image, price, description, ratings, ID, product 
         </CardHeader>
         <CardBody>
           <div className={`mb-2 flex items-center justify-between p-2 ${theme ? ("bg-black text-white") : ("bg-white")}`}>
-            <Typography color="blue-gray" className="font-medium">
+            <Typography color="blue-gray" className="font-extrabold text-xl">
               {title}
             </Typography>
             <Typography color="blue-gray" className="font-medium">

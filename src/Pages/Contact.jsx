@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useContext  } from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import { themeContext } from '../Contexts/Themecontext';
 
 export function ContactSection14() {
+  const { theme } = useContext(themeContext)
   const [formData, setFormData] = useState({
     name: "",
     lastName:"",
@@ -30,7 +32,7 @@ export function ContactSection14() {
   };
   
   return (
-    <section className="px-8 py-8 lg:py-16">
+    <section className={`px-8 py-8 lg:py-16 ${theme ? ("bg-black text-white") : ("bg-white")}`}>
       <div className="container mx-auto text-center">
         <Typography
           variant="h5"
@@ -57,10 +59,10 @@ export function ContactSection14() {
 
           <form
             action="#"
-            className="flex flex-col gap-4 lg:max-w-sm"
+            className={`flex flex-col gap-4 lg:max-w-sm  ${theme ? ("bg-black text-white") : ("bg-white")}`}
             onSubmit={handleSubmit}
           >
-            <Typography
+            {/* <Typography
               variant="small"
               className="text-left !font-semibold !text-gray-600"
             >
@@ -73,12 +75,12 @@ export function ContactSection14() {
               <Button variant="outlined" className="max-w-fit">
                 Product Support
               </Button>
-            </div>
+            </div> */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Typography
                   variant="small"
-                  className="mb-2 text-left font-medium !text-gray-900"
+                  className={`mb-2 text-left font-medium   ${theme ? ("bg-black text-white") : ("bg-white")}`}
                 >
                   First Name
                 </Typography>
@@ -101,7 +103,7 @@ export function ContactSection14() {
               <div>
                 <Typography
                   variant="small"
-                  className="mb-2 text-left font-medium !text-gray-900"
+                  className={`mb-2 text-left font-medium   ${theme ? ("bg-black text-white") : ("bg-white")}`}
                 >
                   Last Name
                 </Typography>
@@ -125,7 +127,7 @@ export function ContactSection14() {
             <div>
               <Typography
                 variant="small"
-                className="mb-2 text-left font-medium !text-gray-900 "
+                className={`mb-2 text-left font-medium   ${theme ? ("bg-black text-white") : ("bg-white")}`}
               >
               Your Email
               </Typography>
@@ -149,7 +151,7 @@ export function ContactSection14() {
             <div>
               <Typography
                 variant="small"
-                className="mb-2 text-left font-medium !text-gray-900"
+                className={`mb-2 text-left font-medium   ${theme ? ("bg-black text-white") : ("bg-white")}`}
               >
                 Your Message
               </Typography>
