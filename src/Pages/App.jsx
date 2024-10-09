@@ -1,41 +1,43 @@
-
-
 import { useEffect, useState, useContext } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
+import { ColorRing } from 'react-loader-spinner';
 import EcommerceCard from '../components/Card';
-import { useOutletContext } from 'react-router-dom';
 import CategoryChip from '../components/CategoryChip';
 import { themeContext } from '../Contexts/Themecontext';
 import { Pagination, ConfigProvider } from 'antd';
+import Hero from '../components/Hero';
+
 function App() {
-  const [product, setProduct] = useState([]);
-  const { search, category } = useOutletContext();
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState('All');
-  const { theme } = useContext(themeContext)
+  const { theme } = useContext(themeContext);
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(20);
+  const [limit] = useState(20);
   const [total, setTotal] = useState(20);
   const [current, setCurrent] = useState(1);
-  const [page, setPage] = useState("amber-400")
+  const [search, setSearch] = useState('');
+  const [sortOption, setSortOption] = useState('titleAsc'); // New state for sorting
+
+  // Fetch products based on category and pagination
   useEffect(() => {
-    setLoading(true); // Set loading to true when fetching data
+    setLoading(true);
     const url =
       choosenCategory === 'All'
         ? `https://dummyjson.com/products?limit=30&skip=${skip}`
         : `https://dummyjson.com/products/category/${choosenCategory}`;
+    
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setProduct(data.products);
+        setProducts(data.products);
         setTotal(data.total);
-
         setLoading(false);
       })
-      .catch(() => setLoading(false)); // Set loading to false even if fetch fails
+      .catch(() => setLoading(false));
   }, [choosenCategory, skip]);
 
+  // Fetch product categories
   useEffect(() => {
     setLoading(true);
     fetch('https://dummyjson.com/products/categories')
@@ -44,35 +46,63 @@ function App() {
         setCategories(data);
         setLoading(false);
       })
-      .catch(() => setLoading(false)); // Set loading to false even if fetch fails
+      .catch(() => setLoading(false));
   }, []);
 
-  const filteredProducts = product
+  // Filter products based on search input
+  const filteredProducts = products
     .filter((data) =>
       data.title.toLowerCase().includes(search.toLowerCase())
-    )
-    .sort((a, b) => a.title.localeCompare(b.title))
-    ||
-    (category === "" || data.title.toLowerCase().includes(category.toLowerCase()))
+    );
+
+  // Sort products based on the selected option
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortOption) {
+      case 'priceAsc':
+        return a.price - b.price;
+      case 'priceDesc':
+        return b.price - a.price;
+      case 'titleDesc':
+        return b.title.localeCompare(a.title);
+      case 'titleAsc':
+      default:
+        return a.title.localeCompare(b.title);
+    }
+  });
 
   return (
     <>
       {loading ? (
         <div className="flex justify-center">
-          <ThreeDots
+          <ColorRing
             visible={true}
             height="80"
             width="80"
-            color="#ffca28"
-            radius="9"
-            ariaLabel="three-dots-loading"
+            ariaLabel="color-ring-loading"
             wrapperStyle={{}}
-            wrapperClass=""
+            wrapperClass="color-ring-wrapper"
+            colors={['#849b87']}
           />
         </div>
       ) : (
         <>
-          <div className={`flex flex-wrap p-4  ${theme ? ("bg-black text-white") : ("bg-white")} `}>
+          <Hero onChange={(e) => setSearch(e.target.value)} />
+          
+          {/* Sort options */}
+          <div className="flex justify-end p-4">
+            <select
+              className="p-2 border rounded-md"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+            >
+              <option value="titleAsc">Sort by Title (A-Z)</option>
+              <option value="titleDesc">Sort by Title (Z-A)</option>
+              <option value="priceAsc">Sort by Price (Low to High)</option>
+              <option value="priceDesc">Sort by Price (High to Low)</option>
+            </select>
+          </div>
+
+          <div className={`flex flex-wrap p-4 ${theme ? "bg-black text-white" : "bg-white"}`}>
             <CategoryChip
               onClick={() => setChoosenCategory('All')}
               isChosen={choosenCategory === 'All'}
@@ -80,58 +110,53 @@ function App() {
             />
             {categories.map((category) => (
               <CategoryChip
+                key={category.slug}
                 isChosen={choosenCategory === category.slug}
                 onClick={() => setChoosenCategory(category.slug)}
-                key={category.slug}
                 title={category.name}
               />
             ))}
           </div>
 
-          <div className={`flex flex-wrap p-4 gap-5 justify-center  shadow-2xl ${theme ? ("bg-black") : ("bg-white")}`}>
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((data) => (
+          <div className={`flex flex-wrap p-4 gap-5 justify-center shadow-2xl ${theme ? "bg-black" : "bg-white"}`}>
+            {sortedProducts.length > 0 ? (
+              sortedProducts.map((data) => (
                 <EcommerceCard
-                  product={data}
-                  ID={data.id}
                   key={data.id}
+                  product={data}
                   title={data.title}
                   image={data.thumbnail}
                   price={data.price}
                   description={data.description}
-                  ratings={data.rating.rate}
+                  ratings={data.rating}
                 />
               ))
             ) : (
               <p>No products found</p>
             )}
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: '#fbbf24', // Amber-400
-                  paginationItemActiveBg: '#ffffff', // Background of active pagination item
-                  paginationItemActiveColor: '#fbbf24', // Text color of active pagination item
-                },
-              }}
-            >
-              <Pagination
-                className='p-4 bg-amber-100'
-                itemLinkBg="#ffffff"
-                itemActiveBg="#ffffff"
-                itemActiveColor="rgba(251, 191, 36, 1)"
-                onChange={(num) => {
-                  setSkip((num - 1) * 20);
-                  setCurrent(num);
-                }}
-                current={current}
-                defaultCurrent={1}
-                pageSize={20}
-                total={total}
-              />
-            </ConfigProvider>
-
           </div>
 
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: '#fbbf24', // Amber-400
+                paginationItemActiveBg: '#ffffff',
+                paginationItemActiveColor: '#fbbf24',
+              },
+            }}
+          >
+            <Pagination
+              className="p-4 bg-amber-100"
+              onChange={(num) => {
+                setSkip((num - 1) * limit);
+                setCurrent(num);
+              }}
+              current={current}
+              defaultCurrent={1}
+              pageSize={limit}
+              total={total}
+            />
+          </ConfigProvider>
         </>
       )}
     </>
@@ -139,5 +164,3 @@ function App() {
 }
 
 export default App;
-
-

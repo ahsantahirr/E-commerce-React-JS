@@ -2,11 +2,11 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-amber-600 mt-10">
+    <footer className=" mt-10">
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-white uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-black uppercase">
               Company
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -33,7 +33,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-white uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-black uppercase">
               Help center
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -60,7 +60,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-white uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-black uppercase">
               Legal
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -82,7 +82,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-white uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-black uppercase">
               Download
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -109,7 +109,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="px-4 py-6 bg-amber-600 md:flex md:items-center md:justify-between">
+        <div className="px-4 py-6 bg-black md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-300 sm:text-center">
             © 2023 <a href="https://flowbite.com/">Flowbite™</a>. All Rights
             Reserved.

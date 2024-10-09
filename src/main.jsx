@@ -11,6 +11,7 @@ import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
 import UserContextProvider from './Contexts/userContext';
 import ThemeContextProvider from './Contexts/Themecontext';
+// import CartSidebar from './components/CartSidebar'
 import Cart from './Pages/Cart';
 import CartContextProvider from './Contexts/Cartcontext';
 

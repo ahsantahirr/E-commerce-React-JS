@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import logo from '../assets/Logo.jpg';
+import logo from '../assets/logo1.jpg';
 import { NavLink, Link } from 'react-router-dom';
 import { userContext } from '../Contexts/userContext'
 import { signOut } from "firebase/auth";
@@ -14,36 +14,36 @@ function Navbar({ onChange, onCategoryChange }) {
     const { theme, setTheme } = useContext(themeContext)
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const { user } = useContext(userContext)
-  const {cartItems } = useContext(CartContext);
+    const { cartItems } = useContext(CartContext);
 
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
     async function signout() {
         await signOut(auth)
     }
     return (
-        <nav className="bg-amber-600 border-gray-200 sticky z-50 top-0">
+        <nav className="bg-white border-b-2 border-b-black sticky z-50 top-0">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src={logo} className=" h-8" alt="ReactStore Logo" />
-                    <span className="self-center text-xs sm:text-2xl font-semibold whitespace-nowrap text-white">
+                    <img src={logo} className=" h-8 rounded-2xl" alt="ReactStore Logo" />
+                    <span className="self-center text-xs sm:text-2xl font-semibold whitespace-nowrap text-black">
                         ReactStore
                     </span>
                 </NavLink>
 
                 <div className="flex md:order-2">
-                    {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2">
+                    {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-black via-black to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-black shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block">
                         SignOut
-                    </button>) : (<NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium  text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block">
+                    </button>) : (<NavLink to="/signin" className="text-white bg-gradient-to-r from-black via-black to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-black shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block">
                         SignIn
                     </NavLink>)}
-                    <Button onClick={() => {
+                    <Button className='bg-transparent' onClick={() => {
                         if (theme === true) {
                             setTheme(false);
                         } else {
                             setTheme(true);
                         }
                     }}>
-                        {theme?<MoonFilled style={{fontSize:20}}/>:<MoonOutlined style={{fontSize:20}}/>}
+                        {theme ? <MoonFilled className='text-black' style={{ fontSize: 20 }} /> : <MoonOutlined className='text-black' style={{ fontSize: 20 }} />}
                     </Button>
 
                     <div className="relative md:block">
@@ -53,22 +53,22 @@ function Navbar({ onChange, onCategoryChange }) {
                             </svg>
                             <span className="sr-only">Search icon</span>
                         </div>
-                        <input
+                        {/* <input
                             type="text"
                             id="search-navbar"
                             className="block w-24 sm:w-full p-2 ps-10 text-sm text-black border border-gray-600 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Search..."
                             onChange={onChange}
-                        />
+                        /> */}
                     </div>
                     <Link to="cart">
-                    <Badge count={cartItems.length} className="mt-2">
-                    <ShoppingCartOutlined className='text-white animate-pulse' style={{fontSize:30}}/>
-                    </Badge>
+                        <Badge count={cartItems.length} className="mt-2">
+                            <ShoppingCartOutlined className='text-black animate-pulse' style={{ fontSize: 30 }} />
+                        </Badge>
                     </Link>
                     <button
                         type="button"
-                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-amber-400 rounded-lg md:hidden hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600"
+                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white-400 rounded-lg md:hidden hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-black"
                         aria-controls="navbar-search"
                         aria-expanded={!isNavCollapsed}
                         onClick={handleNavCollapse}
@@ -81,33 +81,33 @@ function Navbar({ onChange, onCategoryChange }) {
                 </div>
 
                 <div className={`items-center justify-between ${isNavCollapsed ? 'hidden' : 'flex'} w-full md:flex md:w-auto md:order-1`} id="navbar-search">
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-amber-600 rounded-lg bg-amber-600 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-b lack rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                         <li>
-                            <NavLink to="/" className={({ isActive }) => `block py-2 px-3 rounded hover:bg-amber-700 md:hover:bg-transparent
-                            ${isActive ? " text-amber-400 " : "text-white"} md:hover:text-amber-500 md:p-0 hover:bg-gray-700`}>
+                            <NavLink to="/" className={({ isActive }) => `block py-2 px-3 rounded text-black
+                            ${isActive ? "underline decoration-black decoration-2 font-bold underline-offset-8 " : "text-black"}  md:p-0 `}>
                                 Home
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/about" className={({ isActive }) => `block py-2 px-3 rounded hover:bg-amber-700 md:hover:bg-transparent
-                            ${isActive ? " text-amber-400 " : "text-white"} md:hover:text-amber-500 md:p-0 hover:bg-gray-700`}>
+                            <NavLink to="/about" className={({ isActive }) => `block py-2 px-3 rounded text-black
+                            ${isActive ? "underline decoration-black decoration-2 font-bold underline-offset-8 " : "text-black"}  md:p-0 `}>
                                 About
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/contact" className={({ isActive }) => `block py-2 px-3 rounded hover:bg-amber-700 md:hover:bg-transparent
-                            ${isActive ? " text-amber-400 " : "text-white"} md:hover:text-amber-500 md:p-0 hover:bg-gray-700`}>
+                            <NavLink to="/contact" className={({ isActive }) => `block py-2 px-3 rounded text-black
+                            ${isActive ? "underline decoration-black decoration-2 font-bold underline-offset-8 " : "text-black"}  md:p-0 `}>
                                 Contact Us
                             </NavLink>
                         </li>
                         <li>
-                        <NavLink to="/signin" className="text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-amber-500 shadow-lg shadow-amber-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden">
-                        SignIn
-                    </NavLink>
+                            <NavLink to="/signin" className="text-white bg-gradient-to-r from-black-500 via-black-600 to-black-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-black-500 shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden">
+                                SignIn
+                            </NavLink>
                         </li>
-                        <li>{user.isLogin ? <p className="text-white">{user.email}</p> : <p>no user</p>}
+                        {/* <li>{user.isLogin ? <p className="text-white">{user.email}</p> : <p>no user</p>}
 
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

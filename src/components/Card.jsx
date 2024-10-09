@@ -48,8 +48,8 @@ function EcommerceCard({ title, image, price, description, ratings, ID, product 
         <Button
           ripple={false}
           fullWidth={true}
-          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 hover:bg-amber-500 mt-16 h-10 bg-amber-400 w-52 items-center   
-         "onClick={() => addToCart(product)}>
+          className={`bg-blue-gray-900/10 text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 hover:bg-black-500 mt-16 h-10 bg-black w-52 items-center ${theme ? "bg-white text-black" : ""}` }   
+         onClick={() => addToCart(product)}>
           {isItemAdded(product.id)
             ? `Added (${isItemAdded(product.id).quantity})`
             : "Add to Cart"}
