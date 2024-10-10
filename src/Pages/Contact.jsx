@@ -171,7 +171,7 @@ export function ContactSection14() {
                 }}
               />
             </div>
-            <Button className="bg-amber-500 p-3 hover:bg-amber-600" type="submit">
+            <Button className={`${theme ? "bg-white text-black" : "bg-black text-white"} `}type="submit">
               Send message
             </Button>
           </form>

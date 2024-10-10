@@ -26,7 +26,7 @@ function App() {
       choosenCategory === 'All'
         ? `https://dummyjson.com/products?limit=30&skip=${skip}`
         : `https://dummyjson.com/products/category/${choosenCategory}`;
-    
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -71,7 +71,9 @@ function App() {
   });
 
   return (
+
     <>
+      <Hero onChange={(e) => setSearch(e.target.value)} />
       {loading ? (
         <div className="flex justify-center">
           <ColorRing
@@ -86,12 +88,12 @@ function App() {
         </div>
       ) : (
         <>
-          <Hero onChange={(e) => setSearch(e.target.value)} />
-          
+
+
           {/* Sort options */}
-          <div className="flex justify-end p-4">
+          <div className={`flex justify-end p-4 ${theme ? "bg-black" : "bg-white"}`}>
             <select
-              className="p-2 border rounded-md"
+              className="p-2 border rounded-md "
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >
@@ -139,14 +141,14 @@ function App() {
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary: '#fbbf24', // Amber-400
-                paginationItemActiveBg: '#ffffff',
-                paginationItemActiveColor: '#fbbf24',
+      //           colorPrimary: theme ? "#FFFFFF" : "#000000", // White for dark mode, black for light mode
+      // paginationItemActiveBg: theme ? "#000000" : "#FFFFFF", // Black for dark mode, white for light mode
+      // paginationItemActiveColor: theme ? "#fbbf24" : "#000000",
               },
             }}
           >
             <Pagination
-              className="p-4 bg-amber-100"
+              className={`${theme ? "bg-black" : "bg-white"} p-4`}
               onChange={(num) => {
                 setSkip((num - 1) * limit);
                 setCurrent(num);
@@ -157,6 +159,7 @@ function App() {
               total={total}
             />
           </ConfigProvider>
+
         </>
       )}
     </>

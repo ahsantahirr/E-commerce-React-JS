@@ -1,6 +1,10 @@
 import React from 'react'
 import Heroimg from '../assets/hero2.avif'
+import { useContext } from 'react';
+import { themeContext } from '../Contexts/Themecontext';
+
 function Hero({onChange}) {
+    const {theme} = useContext(themeContext)
     return (
         <section>
   
@@ -49,7 +53,7 @@ function Hero({onChange}) {
                                         name=""
                                         id=""
                                         placeholder="Try Desk, Chair, Webcam etc..."
-                                        className="block w-full py-3 pl-10 pr-4 text-base font-normal leading-7 text-gray-900 placeholder-gray-500 bg-white border border-white focus:ring-white focus:border-white focus:ring-offset-2"
+                                        className={`block w-full py-3 pl-10 pr-4 text-base font-normal leading-7 placeholder-gray-500 focus:ring-offset-2 ${theme ? ("bg-black border border-black focus:ring-black focus:border-black text-gray-400 ") : ("bg-white border border-white focus:ring-white focus:border-white ")}`}
                                         onChange={onChange}
                                     />
                                 </div>
