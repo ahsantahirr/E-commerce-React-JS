@@ -4,9 +4,10 @@ import { themeContext } from "../Contexts/Themecontext"; // Import themeContext
 import CheckOutModal from "../components/Checkoutmodal";
 
 function Cart() {
-  const { cartItems, updateToCart, removeCart, clearCart } = useContext(CartContext);
+  const { cartItems, updateToCart, removeCart, clearCart, addToFavourite,  } = useContext(CartContext); // Include addToFavourite and isItemFavourite
   const { theme } = useContext(themeContext); // Get theme from themeContext
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleIncrease = (id) => {
     updateToCart(id, "plus");
   };
@@ -18,6 +19,7 @@ function Cart() {
   const handleRemove = (id) => {
     removeCart(id); // Remove specific item
   };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -31,46 +33,47 @@ function Cart() {
   };
 
   const checkoutOrder = async (values) => {
+    console.log("Form values: ", values); // Add this to check if values are correctly passed
+    
     try {
-      // Create the checkout object with necessary information
       const checkoutObj = {
         ...values,
         subtotal,
-        
         status: "pending",
-        // user: auth.currentUser ? auth.currentUser.uid : "guest",
         items: cartItems.map(
           (data) =>
             `Item : ${data.title}, Price : $${data.price} (Qty: ${data.quantity})`
         ),
       };
   
-      // Add the order to the "orders" collection in Firestore
-      // const docRef = collection(db, "orders");
-      // await addDoc(docRef, checkoutObj);
+      const message = `
+      *Order Summary*\n
+      *Name:* ${values.username}
+      *Email:* ${values.email}
+      *Phone:* ${values.number}
+      *Subtotal:* $${subtotal.toFixed(2)}
+      *Status:* Pending\n
+      *Items:*\n${cartItems
+        .map(
+          (data, index) =>
+            `${index + 1}. ${data.title} - $${data.price} (Qty: ${data.quantity})`
+        )
+        .join("\n")}\n
+      *Total Amount:* $${subtotal.toFixed(2)}
+      `;
   
-      // Notify user that the order is placed successfully
-      // message.success("Your order is placed!");
-  
-      // Encode the checkout object for sharing on WhatsApp
-      const encodedTxt = encodeURIComponent(JSON.stringify(checkoutObj));
-  
-      // Open WhatsApp with the encoded text
+      const encodedTxt = encodeURIComponent(message.trim());
       window.open(`https://wa.me/923428180120?text=${encodedTxt}`, "_blank");
   
-      // Clear the cart after placing the order
       clearCart();
-      setIsModalOpen(false)
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error placing order: ", error);
-      // message.error("Failed to place the order. Please try again.");
     }
   };
   
-  // Calculate subtotal for the cart
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
-  // Conditional class names based on theme
   const containerClass = theme ? "bg-black text-white" : "bg-white text-black";
   const borderClass = theme ? "border-gray-700" : "border-gray-200";
   const btnClass = theme
@@ -107,8 +110,7 @@ function Cart() {
                               id="decrement-button"
                               onClick={() => handleDecrease(item.id)}
                               className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border focus:outline-none focus:ring-2 focus:ring-gray-100 ${btnClass}`}
-                              disabled={item.quantity <= 0}
-
+                              disabled={item.quantity <= 1}
                             >
                               <svg
                                 className="h-2.5 w-2.5"
@@ -130,7 +132,6 @@ function Cart() {
                               type="text"
                               id="counter-input"
                               className={`w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium focus:outline-none focus:ring-0 ${containerClass}`}
-
                               value={item.quantity}
                               readOnly
                             />
@@ -174,6 +175,7 @@ function Cart() {
                             <button
                               type="button"
                               className="inline-flex items-center text-sm font-medium hover:underline"
+                              onClick={() => addToFavourite(item)} // Add to favorite onClick
                             >
                               <svg
                                 className="me-1.5 h-5 w-5"
@@ -192,6 +194,7 @@ function Cart() {
                                   d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
                                 />
                               </svg>
+                              {/* Conditionally render button text based on favorite status */}
                               Add to Favorites
                             </button>
                             <button
@@ -252,7 +255,7 @@ function Cart() {
 
                 <button
                   type="button"
-                  className="mt-6 w-full rounded-lg py-3 px-4 text-center text-base font-medium bg-black text-white hover:opacity-90"
+                  className={`mt-6 w-full rounded-lg py-3 px-4 text-center text-base font-medium  hover:opacity-90 ${theme ? "text-black bg-white" : "bg-black text-white"}`}
                   onClick={showModal} // Show the modal on click
                 >
                   Checkout

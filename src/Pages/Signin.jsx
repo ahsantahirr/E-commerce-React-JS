@@ -7,7 +7,7 @@ function Signin() {
   const {theme} = useContext(themeContext)
   return (
     
-    <section className={`${theme? "bg-black" : "bg-white"}`}>
+    <section className={`${theme? "bg-black" : "bg-white"} font-poppins`}>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"

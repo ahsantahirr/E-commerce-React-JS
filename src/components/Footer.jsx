@@ -3,11 +3,11 @@ import { themeContext } from '../Contexts/Themecontext';
 function Footer() {
   const {theme} = useContext(themeContext)
   return (
-    <footer className={`${theme?"bg-black":"bg-white"} p-10`}>
+    <footer className={`bg-gray-950 p-10 font-poppins`}>
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
           <div>
-            <h2 className={`${theme? "text-white" : "text-black" } mb-6 text-sm font-semibold uppercase`}>
+            <h2 className={`text-white mb-6 text-sm font-semibold uppercase`}>
               Company
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -34,7 +34,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className={`${theme? "text-white" : "text-black" } mb-6 text-sm font-semibold uppercase`}>
+            <h2 className={`text-white mb-6 text-sm font-semibold uppercase`}>
               Help center
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -61,7 +61,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className={`${theme? "text-white" : "text-black" } mb-6 text-sm font-semibold uppercase`}>
+            <h2 className={`text-white mb-6 text-sm font-semibold uppercase`}>
               Legal
             </h2>
             <ul className="text-gray-400 font-medium">
@@ -83,7 +83,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className={`${theme? "text-white" : "text-black" } mb-6 text-sm font-semibold uppercase`}>
+            <h2 className={`text-white mb-6 text-sm font-semibold uppercase`}>
               Download
             </h2>
             <ul className="text-gray-400 font-medium">

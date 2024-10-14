@@ -13,6 +13,7 @@ import UserContextProvider from './Contexts/userContext';
 import ThemeContextProvider from './Contexts/Themecontext';
 // import CartSidebar from './components/CartSidebar'
 import Cart from './Pages/Cart';
+import Favorites from './Pages/Favourititems';
 import CartContextProvider from './Contexts/Cartcontext';
 
 const router = createBrowserRouter(
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
       <Route path='signup' element={<Signup />} />
       <Route path='/product/:id' element={<Productdetails />} />
       <Route path='cart' element={<Cart />} />
+      <Route path='favourite' element={<Favorites />} />
+
     </Route>
   )
 )

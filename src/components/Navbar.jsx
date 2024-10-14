@@ -35,7 +35,7 @@ function Navbar({ onChange, onCategoryChange }) {
         await signOut(auth)
     }
     return (
-        <nav className={` border-b-2 sticky z-50 top-0 ${theme ? ("bg-black border-blue-50") : "bg-white border-b-black"}`}>
+        <nav className={`border-b-2 md:sticky z-50 top-0 font-poppins ${theme ? ("bg-black border-blue-50") : "bg-white border-b-black"}`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className=" h-8 rounded-2xl" alt="ReactStore Logo" />
@@ -121,7 +121,7 @@ function Navbar({ onChange, onCategoryChange }) {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/signin" className="text-white bg-gradient-to-r from-black-500 via-black-600 to-black-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-black-500 shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden">
+                            <NavLink to="/signin" className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
                                 SignIn
                             </NavLink>
                         </li>

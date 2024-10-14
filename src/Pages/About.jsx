@@ -6,15 +6,13 @@ import test3 from '../assets/test3.jpeg'
 function About() {
   return (
     <>
-    <meta charSet="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us</title>
-    <header className="bg-white shadow">
+   
+    <header className="bg-white shadow font-poppins">
       <div className="max-w-7xl mx-auto px-4 py-6">
         <h1 className="text-3xl font-bold">About Us</h1>
       </div>
     </header>
-    <main className="max-w-7xl mx-auto px-4 py-10">
+    <main className="max-w-7xl mx-auto px-4 py-10 font-poppins">
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
         <p className="text-gray-700">
@@ -64,7 +62,7 @@ function About() {
         </div>
       </section>
     </main>
-    <footer className="bg-white shadow mt-10">
+    <footer className="bg-white shadow mt-10 font-poppins">
       <div className="max-w-7xl mx-auto px-4 py-6 text-center">
         <p className="text-gray-600">
           © 2024 [ReactStore]. All rights reserved.

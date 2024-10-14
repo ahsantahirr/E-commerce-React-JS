@@ -6,7 +6,7 @@ import { themeContext } from '../Contexts/Themecontext';
 function Hero({onChange}) {
     const {theme} = useContext(themeContext)
     return (
-        <section>
+        <section className="font-poppins">
   
             <div className="relative py-12 bg-white sm:py-16 lg:py-20">
                 <div className="absolute inset-0">

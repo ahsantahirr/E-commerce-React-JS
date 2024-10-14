@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import logo from '../assets/Logo.jpg'
+import Googlebutton from '../components/Googlebutton'
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword} from 'firebase/auth'
@@ -19,12 +20,12 @@ function Signup() {
     }
     
     return (
-        <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 h-full 
+        <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 h-full overflow-hidden font-poppins
     ">
             <div className="text-center mt-10 flex justify-center">
                 <a
                     href="#"
-                    className="flex items-center mb-6 text-2xl font-semibold text-gray-900 "
+                    className="flex items-center  text-2xl font-semibold text-gray-900 "
                 >
                     <img
                         className="w-8 h-8 mr-2"
@@ -71,7 +72,7 @@ function Signup() {
                                 onChange={(e)=>setPassword(e.target.value)}
                             />
                         </div>
-                        <div>
+                        {/* <div>
                             <label className="text-gray-800 text-sm mb-2 block font-bold">
                                 Confirm Password
                             </label>
@@ -81,7 +82,7 @@ function Signup() {
                                 className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
                                 placeholder="Enter confirm password"
                             />
-                        </div>
+                        </div> */}
                         <div className="flex items-center">
                             <input
                                 id="remember-me"
@@ -120,13 +121,8 @@ function Signup() {
                             Login here
                         </Link>
                     </p>
-                    <div className="!mt-12">
-                        <button
-                            type="button"
-                            className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-amber-500 hover:bg-amber-600 focus:outline-none"
-                        >
-                           Signup with Google
-                        </button>
+                    <div className="!mt-12 flex justify-center">
+                       <Googlebutton/>
                     </div>
                 </form>
             </div>

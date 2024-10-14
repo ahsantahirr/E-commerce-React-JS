@@ -32,7 +32,7 @@ export function ContactSection14() {
   };
   
   return (
-    <section className={`px-8 py-8 lg:py-16 ${theme ? ("bg-black text-white") : ("bg-white")}`}>
+    <section className={`px-8 py-8 lg:py-16 font-poppins ${theme ? ("bg-black text-white") : ("bg-white")}`}>
       <div className="container mx-auto text-center">
         <Typography
           variant="h5"

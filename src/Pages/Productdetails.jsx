@@ -1,11 +1,27 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
+import { useState, useEffect,useContext } from 'react';
+import { ColorRing } from 'react-loader-spinner';
+
 import { useParams } from 'react-router-dom'
+import { CartContext } from '../Contexts/Cartcontext'
+import { themeContext } from '../Contexts/Themecontext';
+
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 
 function Productdetails() {
   const [product, setProduct] = useState("");
   const [loading, setLoading] = useState(true)
+  const { addToCart, isItemAdded } = useContext(CartContext);
+  const { theme } = useContext(themeContext)
+
+
   const { id } = useParams()
   useEffect(() => {
     fetch(`https://dummyjson.com/products/${id}`)
@@ -18,16 +34,17 @@ function Productdetails() {
 
   return (
     <>
-      {loading ? ( <div className='flex justify-center'><ThreeDots
-          visible={true}
-          height="80"
-          width="80"
-          color="#ffca28"
-          radius="9"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        /></div>):(<section className="text-gray-600 body-font overflow-hidden">
+      {loading ? ( <div className="flex justify-center">
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={['#849b87']}
+          />
+        </div>):(<section className="text-gray-600 body-font overflow-hidden font-poppins">
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <img
@@ -157,9 +174,17 @@ function Productdetails() {
                   <span className="title-font font-medium text-2xl text-gray-900">
                     ${product.price}
                   </span>
-                  <button className="flex ml-auto text-white bg-amber-500 border-0 py-2 px-6 focus:outline-none hover:bg-amber-600 rounded">
-                   Order
-                  </button>
+                  <Button
+          ripple={false}
+          fullWidth={true}
+          className={`bg-blue-gray-900/10 text-white shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 hover:bg-black-500 mt-16 h-10 bg-black w-52 items-center ${theme ? "bg-white text-black" : ""}` }   
+         onClick={() => addToCart(product)}>
+          {isItemAdded(product.id)
+            ? `Added (${isItemAdded(product.id).quantity})`
+            : "Add to Cart"}
+
+
+        </Button>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <svg
                       fill="currentColor"

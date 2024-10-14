@@ -40,6 +40,8 @@ const CheckOutModal = ({
   };
 
   return (
+    <div className="font-poppins">
+
     <Modal
       title="Checkout Modal"
       open={isModalOpen}
@@ -89,6 +91,7 @@ const CheckOutModal = ({
         </div>
       )}
     </Modal>
+    </div>
   );
 };
 

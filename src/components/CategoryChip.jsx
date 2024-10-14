@@ -7,7 +7,7 @@ function CategoryChip({ title, isChosen, onClick }) {
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer inline-block m-2 p-2 w-fit px-4 border rounded-md
+      className={`cursor-pointer inline-block m-2 p-2 w-fit px-4 border rounded-md font-poppins
         ${isChosen 
           ? theme 
             ? "bg-white text-black" // Chosen and dark mode
