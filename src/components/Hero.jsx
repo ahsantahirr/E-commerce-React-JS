@@ -53,7 +53,7 @@ function Hero({onChange}) {
                                         name=""
                                         id=""
                                         placeholder="Try Desk, Chair, Webcam etc..."
-                                        className={`block w-full py-3 pl-10 pr-4 text-base font-normal leading-7 placeholder-gray-500 focus:ring-offset-2 ${theme ? ("bg-black border border-black focus:ring-black focus:border-black text-gray-400 ") : ("bg-white border border-white focus:ring-white focus:border-white ")}`}
+                                        className={`block w-full py-3 pl-10 pr-4 text-base font-normal leading-7 placeholder-gray-500 focus:ring-offset-2 ${theme ? ("bg-gray-950 border border-black focus:ring-black focus:border-black text-gray-400 ") : ("bg-white border border-white focus:ring-white focus:border-white ")}`}
                                         onChange={onChange}
                                     />
                                 </div>

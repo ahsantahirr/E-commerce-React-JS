@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import logo from '../assets/logo1.jpg';
 import { NavLink, Link } from 'react-router-dom';
 import { userContext } from '../Contexts/userContext'
@@ -16,6 +16,19 @@ function Navbar({ onChange, onCategoryChange }) {
     const { user } = useContext(userContext)
     const { cartItems } = useContext(CartContext);
 
+    const [spin, setSpin] = useState(false);
+
+    useEffect(() => {
+        if (cartItems.length >= 0) {
+            setSpin(true); // Start spinning
+            // Stop spinning after 1 second
+            const timeout = setTimeout(() => {
+                setSpin(false);
+            }, 1000);
+
+            return () => clearTimeout(timeout); // Cleanup timeout on unmount or next change
+        }
+    }, [cartItems.length]);
 
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
     async function signout() {
@@ -64,7 +77,10 @@ function Navbar({ onChange, onCategoryChange }) {
                     </div> */}
                     <Link to="cart">
                         <Badge count={cartItems.length} className="mt-2">
-                            <ShoppingCartOutlined className={`${theme ? ("text-white") : ("text-black")} animate-pulse`} style={{ fontSize: 30 }} />
+                            <ShoppingCartOutlined
+                                className={`${theme ? 'text-white' : 'text-black'} ${spin ? 'animate-spin' : ''} `}
+                                style={{ fontSize: 30 }}
+                            />
                         </Badge>
                     </Link>
                     <button

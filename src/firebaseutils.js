@@ -1,7 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyD7cazRppxklt-uWYV0WoO9Jn9OyRtDwks",
   authDomain: "e-commerce-reac-f7b6c.firebaseapp.com",
@@ -16,6 +16,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app)
+export const googleProvider = new GoogleAuthProvider();
+
 console.log(app)
 
 export{auth}
+
+
+
+

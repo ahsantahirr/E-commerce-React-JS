@@ -36,8 +36,11 @@ function CartContextProvider({ children }) {
     const itemInd = arr.findIndex((data) => data.id == id);
     if (type == "plus") {
       arr[itemInd].quantity++;
+     
+    
     } else {
       arr[itemInd].quantity--;
+      
     }
 
     setCartItems([...arr]);

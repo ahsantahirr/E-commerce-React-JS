@@ -131,10 +131,11 @@ function App() {
                   price={data.price}
                   description={data.description}
                   ratings={data.rating}
+                  ID ={data.id}
                 />
               ))
             ) : (
-              <p>No products found</p>
+              <p className={`${theme ? "text-white" : "text-black"}`}>No products found</p>
             )}
           </div>
 
