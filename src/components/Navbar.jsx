@@ -35,7 +35,7 @@ function Navbar({ onChange, onCategoryChange }) {
         await signOut(auth)
     }
     return (
-        <nav className={`border-b-2 md:sticky z-50 top-0 font-poppins ${theme ? ("bg-black border-blue-50") : "bg-white border-b-black"}`}>
+        <nav className={`border-b-2 sticky z-50 top-0 font-poppins ${theme ? ("bg-black border-blue-50") : "bg-white border-b-black"}`}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className=" h-8 rounded-2xl" alt="ReactStore Logo" />
