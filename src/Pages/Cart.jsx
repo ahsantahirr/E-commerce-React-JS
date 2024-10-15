@@ -91,6 +91,7 @@ function Cart() {
               <div className="space-y-6">
                 {cartItems.length > 0 ? (
                   cartItems.map((item) => (
+                    window.scrollTo({ top: 0, behavior: 'smooth' }),
                     <div
                       key={item.id}
                       className={`rounded-lg border p-4 shadow-sm md:p-6 ${borderClass}`}

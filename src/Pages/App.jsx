@@ -120,9 +120,10 @@ function App() {
             ))}
           </div>
 
-          <div className={`flex flex-wrap p-4 gap-5 justify-center shadow-2xl ${theme ? "bg-black" : "bg-white"}`}>
+          <div className={`flex flex-wrap p-4 gap-5 justify-center shadow-2xl ${theme ? "bg-black" : "bg-white"}`} >
             {sortedProducts.length > 0 ? (
               sortedProducts.map((data) => (
+                // window.scrollTo({ top: 0, behavior: 'smooth' }),
                 <EcommerceCard
                   key={data.id}
                   product={data}
@@ -140,26 +141,27 @@ function App() {
           </div>
 
           <ConfigProvider
-            theme={{
-              token: {
-      //           colorPrimary: theme ? "#FFFFFF" : "#000000", // White for dark mode, black for light mode
-      // paginationItemActiveBg: theme ? "#000000" : "#FFFFFF", // Black for dark mode, white for light mode
-      // paginationItemActiveColor: theme ? "#fbbf24" : "#000000",
-              },
-            }}
-          >
-            <Pagination
-              className={`${theme ? "bg-black" : "bg-white"} p-4`}
-              onChange={(num) => {
-                setSkip((num - 1) * limit);
-                setCurrent(num);
-              }}
-              current={current}
-              defaultCurrent={1}
-              pageSize={limit}
-              total={total}
-            />
-          </ConfigProvider>
+  theme={{
+    token: {
+      // Add any custom theme configuration here
+    },
+  }}
+>
+  <Pagination
+    className={`${theme ? "bg-black" : "bg-white"} p-4`}
+    onChange={(num) => {
+      // Scroll to the top of the page when changing the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setSkip((num - 1) * limit); // Update pagination skip value
+      setCurrent(num); // Update the current page number
+    }}
+    current={current}
+    defaultCurrent={1}
+    pageSize={limit}
+    total={total}
+  />
+</ConfigProvider>
+
 
         </>
       )}
@@ -168,3 +170,7 @@ function App() {
 }
 
 export default App;
+
+              //           colorPrimary: theme ? "#FFFFFF" : "#000000", // White for dark mode, black for light mode
+              // paginationItemActiveBg: theme ? "#000000" : "#FFFFFF", // Black for dark mode, white for light mode
+              // paginationItemActiveColor: theme ? "#fbbf24" : "#000000",

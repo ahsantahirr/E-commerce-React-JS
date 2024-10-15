@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import logo from '../assets/logo1.jpg';
+import ProfileDropdown from './ProfileDropdown'
 import { NavLink, Link } from 'react-router-dom';
 import { userContext } from '../Contexts/userContext'
 import { signOut } from "firebase/auth";
@@ -15,9 +16,10 @@ function Navbar({ onChange, onCategoryChange }) {
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const { user } = useContext(userContext)
     const { cartItems } = useContext(CartContext);
-
+   
     const [spin, setSpin] = useState(false);
-
+ 
+    
     useEffect(() => {
         if (cartItems.length >= 0) {
             setSpin(true); // Start spinning
@@ -44,7 +46,7 @@ function Navbar({ onChange, onCategoryChange }) {
                     </span>
                 </NavLink>
 
-                <div className="flex md:order-2">
+                <div className="flex md:order-2 gap-2 items-center">
                     {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-black via-black to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-black shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block">
                         SignOut
                     </button>) : (<NavLink to="/signin" className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
@@ -76,13 +78,20 @@ function Navbar({ onChange, onCategoryChange }) {
                         />
                     </div> */}
                     <Link to="cart">
-                        <Badge count={cartItems.length} className="mt-2">
-                            <ShoppingCartOutlined
-                                className={`${theme ? 'text-white' : 'text-black'} ${spin ? 'animate-spin' : ''} `}
-                                style={{ fontSize: 30 }}
-                            />
-                        </Badge>
+                      
+                            <Badge count={cartItems.length} className="mt-2">
+                                <ShoppingCartOutlined
+                                    className={`${theme ? 'text-white' : 'text-black'} ${spin ? 'animate-spin' : ''} `}
+                                    style={{ fontSize: 30 }}
+                                />
+                            </Badge>
+                      
                     </Link>
+                    <div className={`${user.isLogin?"flex" : "hidden"} md:order-2`}>
+
+                        <ProfileDropdown />
+
+                    </div>
                     <button
                         type="button"
                         className={`inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white-400 rounded-lg md:hidden  focus:outline-none focus:ring-2  ${theme ? "focus:ring-white bg-white " : "focus:ring-black bg-white"}`}
@@ -125,7 +134,7 @@ function Navbar({ onChange, onCategoryChange }) {
                                 SignIn
                             </NavLink>
                         </li>
-                        {/* <li>{user.isLogin ? <p className="text-white">{user.email}</p> : <p>no user</p>}
+                        {/* <li>{user.isLogin ? <p className="text-white">{user.name}</p> : <p>no user</p>}
 
                         </li> */}
                     </ul>

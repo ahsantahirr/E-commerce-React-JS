@@ -6,8 +6,8 @@ import test3 from '../assets/test3.jpeg'
 function About() {
   return (
     <>
-   
-    <header className="bg-white shadow font-poppins">
+{ window.scrollTo({ top: 0, behavior: 'smooth' })}
+    <header className="bg-white shadow font-poppins" >
       <div className="max-w-7xl mx-auto px-4 py-6">
         <h1 className="text-3xl font-bold">About Us</h1>
       </div>

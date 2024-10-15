@@ -32,7 +32,10 @@ export function ContactSection14() {
   };
   
   return (
+    
     <section className={`px-8 py-8 lg:py-16 font-poppins ${theme ? ("bg-black text-white") : ("bg-white")}`}>
+{ window.scrollTo({ top: 0, behavior: 'smooth' })}
+
       <div className="container mx-auto text-center">
         <Typography
           variant="h5"
