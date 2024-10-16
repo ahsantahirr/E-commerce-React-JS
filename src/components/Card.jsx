@@ -23,7 +23,7 @@ function EcommerceCard({ title, image, price, description, ratings, ID, product 
           <img
             src={image}
             alt="card-image"
-            className="h-full w-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+            className="h-full w-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg "
           />
         </CardHeader>
         <CardBody>

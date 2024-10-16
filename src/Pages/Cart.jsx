@@ -2,12 +2,14 @@ import { useContext, useState } from "react";
 import { CartContext } from "../Contexts/Cartcontext";
 import { themeContext } from "../Contexts/Themecontext"; // Import themeContext
 import CheckOutModal from "../components/Checkoutmodal";
+import ThankyouModal from "../components/ThankyouModal";
+
 
 function Cart() {
   const { cartItems, updateToCart, removeCart, clearCart, addToFavourite,  } = useContext(CartContext); // Include addToFavourite and isItemFavourite
   const { theme } = useContext(themeContext); // Get theme from themeContext
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+const [thankyoumodal, setthankyoumodal] = useState(false)
   const handleIncrease = (id) => {
     updateToCart(id, "plus");
   };
@@ -64,7 +66,7 @@ function Cart() {
   
       const encodedTxt = encodeURIComponent(message.trim());
       window.open(`https://wa.me/923428180120?text=${encodedTxt}`, "_blank");
-  
+      setthankyoumodal(true)
       clearCart();
       setIsModalOpen(false);
     } catch (error) {
@@ -82,6 +84,7 @@ function Cart() {
 
   return (
     <div>
+      {thankyoumodal?<ThankyouModal/>:""}
       <section className={`py-8 antialiased md:py-16 ${containerClass}`}>
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <h2 className="text-xl font-semibold sm:text-2xl">Shopping Cart</h2>
@@ -230,6 +233,7 @@ function Cart() {
                 ) : (
                   <p className="text-center text-gray-500">
                     Your cart is empty.
+                   
                   </p>
                 )}
               </div>
