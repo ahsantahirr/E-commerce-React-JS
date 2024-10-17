@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { userContext } from '../Contexts/userContext';
 
+import { Link } from 'react-router-dom';
 function ProfileDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const { user } = useContext(userContext);
@@ -40,12 +41,12 @@ function ProfileDropdown() {
                     </div>
                     <ul className="py-2" role="menu" aria-labelledby="user-menu-button">
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                               to='orders'
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                             >
-                                Dashboard
-                            </a>
+                                Your Orders
+                            </Link>
                         </li>
                         <li>
                             <a

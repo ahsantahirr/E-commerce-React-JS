@@ -3,6 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, getStorage  } from "firebase/storage"; // Firebase Storage functions
+import { addDoc, collection } from "firebase/firestore"; // Firestore functions
 const firebaseConfig = {
   apiKey: "AIzaSyD7cazRppxklt-uWYV0WoO9Jn9OyRtDwks",
   authDomain: "e-commerce-reac-f7b6c.firebaseapp.com",
@@ -18,10 +20,15 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app)
 export const googleProvider = new GoogleAuthProvider();
-export const db = getFirestore(app); // Add Firestore initialization
+export const db = getFirestore(app); 
+export const storage = getStorage(app);
+
+
+
+// Add Firestore initialization
 console.log(app)
 
-export{auth, signInWithPopup, GoogleAuthProvider }
+export{auth,signInWithPopup, GoogleAuthProvider, ref, uploadBytes, getDownloadURL , addDoc, collection }
 
 
 

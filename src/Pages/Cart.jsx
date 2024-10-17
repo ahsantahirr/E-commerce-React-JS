@@ -3,6 +3,9 @@ import { CartContext } from "../Contexts/Cartcontext";
 import { themeContext } from "../Contexts/Themecontext"; // Import themeContext
 import CheckOutModal from "../components/Checkoutmodal";
 import ThankyouModal from "../components/ThankyouModal";
+import { storage, db } from "../firebaseutils"; // Import storage and db from your Firebase config
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage functions
+import { addDoc, collection } from "firebase/firestore"; // Firestore functions
 
 
 function Cart() {
@@ -35,38 +38,61 @@ const [thankyoumodal, setthankyoumodal] = useState(false)
   };
 
   const checkoutOrder = async (values) => {
-    console.log("Form values: ", values); // Add this to check if values are correctly passed
-    
+    console.log("Form values: ", values);
     try {
-      const checkoutObj = {
-        ...values,
+      // Create a Firestore order document
+      const orderData = {
+        name: values.username,
+        email: values.email,
+        phone: values.number,
         subtotal,
         status: "pending",
-        items: cartItems.map(
-          (data) =>
-            `Item : ${data.title}, Price : $${data.price} (Qty: ${data.quantity})`
-        ),
+        items: cartItems.map(item => ({
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          thumbnail: "", // Placeholder for image URL
+        })),
+        createdAt: new Date(),
       };
   
-      const message = `
-      *Order Summary*\n
-      *Name:* ${values.username}
-      *Email:* ${values.email}
-      *Phone:* ${values.number}
-      *Subtotal:* $${subtotal.toFixed(2)}
-      *Status:* Pending\n
-      *Items:*\n${cartItems
-        .map(
-          (data, index) =>
-            `${index + 1}. ${data.title} - $${data.price} (Qty: ${data.quantity})`
-        )
-        .join("\n")}\n
-      *Total Amount:* $${subtotal.toFixed(2)}
-      `;
+      // Upload each item image to Firebase Storage and update order with image URLs
+      for (const item of cartItems) {
+        const imageRef = ref(storage, `orders/${values.email}/products/${item.id}`);
+        const response = await fetch(item.thumbnail); // Fetch the image from its current URL
+        const blob = await response.blob(); // Convert the image to a blob
+        
+        await uploadBytes(imageRef, blob); // Upload the image to Firebase Storage
+        const imageUrl = await getDownloadURL(imageRef); // Get the uploaded image URL
   
+        // Update the item's thumbnail with the Firebase Storage URL
+        orderData.items = orderData.items.map(product =>
+          product.title === item.title ? { ...product, thumbnail: imageUrl } : product
+        );
+      }
+  
+      // Add order to Firestore
+      await addDoc(collection(db, "orders"), orderData);
+  
+      // Send the order summary to WhatsApp and clear the cart
+      const message = `
+        *Order Summary*\n
+        *Name:* ${values.username}
+        *Email:* ${values.email}
+        *Phone:* ${values.number}
+        *Subtotal:* $${subtotal.toFixed(2)}
+        *Status:* Pending\n
+        *Items:*\n${orderData.items
+          .map(
+            (data, index) =>
+              `${index + 1}. ${data.title} - $${data.price} (Qty: ${data.quantity})`
+          )
+          .join("\n")}\n
+        *Total Amount:* $${subtotal.toFixed(2)}
+        `;
       const encodedTxt = encodeURIComponent(message.trim());
       window.open(`https://wa.me/923428180120?text=${encodedTxt}`, "_blank");
-      setthankyoumodal(true)
+      setthankyoumodal(true);
       clearCart();
       setIsModalOpen(false);
     } catch (error) {

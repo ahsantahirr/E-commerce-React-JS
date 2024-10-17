@@ -9,6 +9,9 @@ import ContactUs from './Pages/Contact';
 import Productdetails from './Pages/Productdetails';
 import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
+import Orders from './Pages/Orders';
+
+
 import UserContextProvider from './Contexts/userContext';
 import ThemeContextProvider from './Contexts/Themecontext';
 // import CartSidebar from './components/CartSidebar'
@@ -26,6 +29,8 @@ const router = createBrowserRouter(
       <Route path='signup' element={<Signup />} />
       <Route path='/product/:id' element={<Productdetails />} />
       <Route path='cart' element={<Cart />} />
+      <Route path='orders' element={<Orders />} />
+
       <Route path='favourite' element={<Favorites />} />
 
     </Route>
