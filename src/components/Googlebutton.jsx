@@ -1,8 +1,10 @@
 import React from 'react'
 
-function Googlebutton() {
+function Googlebutton({ onClick }) {
   return (
     <button
+
+    onClick={onClick}
     aria-label="Sign in with Google"
     class="flex items-center gap-3 bg-google-button-dark rounded-md p-0.5 pr-3 transition-colors duration-300 hover:bg-google-button-dark-hover font-poppins"
   >

@@ -1,28 +1,53 @@
-import { onAuthStateChanged } from "firebase/auth";
-import { createContext, useEffect, useState } from "react";
-import { auth } from "../firebaseutils";
+import React, { createContext, useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from '../firebaseutils';
+import { doc, getDoc } from 'firebase/firestore';
 
+export const userContext = createContext();
 
-export const userContext = createContext()
-function UserContextProvider({ children }) {
-    const [user, setUser] = useState({ isLogin: false, email: "", name: "" })
+export function UserContextProvider({ children }) {
+    const [user, setUser] = useState({
+        name: null,
+        email: null,
+        isLogin: false,
+        profile: null,
+    });
+
+    // Check Firebase auth state and retrieve user data from Firestore
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser({ isLogin: true,  })
-               
-                
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                // Fetch user data from Firestore
+                const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    setUser({
+                        name: userData.name,
+                        email: userData.email,
+                        isLogin: true,
+                        profile: userData.profile || null
+                    });
+                }
             } else {
-                setUser({ isLogin: false,  })
+                // Reset user data if no user is logged in
+                setUser({
+                    name: null,
+                    email: null,
+                    isLogin: false,
+                    profile: null
+                });
             }
-        })
-    }, [])
+        });
+
+        // Clean up subscription on unmount
+        return () => unsubscribe();
+    }, [setUser]);
 
     return (
-        < userContext.Provider value={{ user, setUser }}>
+        <userContext.Provider value={{ user, setUser }}>
             {children}
-        </ userContext.Provider >
-    )
-
+        </userContext.Provider>
+    );
 }
+
 export default UserContextProvider;

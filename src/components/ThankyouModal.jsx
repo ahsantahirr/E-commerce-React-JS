@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
-// import 'antd/dist/antd.css'; // Ensure Ant Design styles are imported
+
 
 const App = () => {
-  const [open, setOpen] = useState(true); // Default modal open
+  const [open, setOpen] = useState(true); 
 
   const handleCancel = () => {
-    setOpen(false); // Close modal on cancel
+    setOpen(false); 
   };
 
   return (
     <>
       <Modal
         open={open}
-        footer={null} // Hide default footer buttons
-        onCancel={handleCancel} // Handle cancel button
+        footer={null} 
+        onCancel={handleCancel} 
       >
         <div className="flex flex-col items-center text-center mx-auto">
           <img
