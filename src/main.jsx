@@ -10,6 +10,8 @@ import Productdetails from './Pages/Productdetails';
 import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
 import Orders from './Pages/Orders';
+import AdminPanel from './Pages/AdminPanel';
+
 
 
 import UserContextProvider from './Contexts/userContext';
@@ -30,6 +32,8 @@ const router = createBrowserRouter(
       <Route path='/product/:id' element={<Productdetails />} />
       <Route path='cart' element={<Cart />} />
       <Route path='orders' element={<Orders />} />
+      <Route path='AdminPanel' element={<AdminPanel />} />
+
 
       <Route path='favourite' element={<Favorites />} />
 
