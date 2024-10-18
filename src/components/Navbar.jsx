@@ -130,6 +130,13 @@ function Navbar({ onChange, onCategoryChange }) {
                             </NavLink>
                         </li>
                         <li>
+                            <NavLink to="/AdminPanel" className={({ isActive }) => ` py-2 px-3 
+                           ${user.email=="admin@gmail.com"? "block":"hidden"} ${theme ? "text-white" : "text-black"} 
+                            ${isActive ? (`underline ${theme ? "decoration-white" : "decoration-black "} decoration-2 font-bold underline-offset-8 `) : "text-black"}  md:p-0 `}>
+                                Admin Dashboard
+                            </NavLink>
+                        </li>
+                        <li>
                             <NavLink to="/signin" className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
                                 SignIn
                             </NavLink>

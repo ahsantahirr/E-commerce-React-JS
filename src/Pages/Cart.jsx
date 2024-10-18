@@ -42,9 +42,11 @@ const [thankyoumodal, setthankyoumodal] = useState(false)
     try {
       // Create a Firestore order document
       const orderData = {
+        
         name: values.username,
         email: values.email,
         phone: values.number,
+        address: values.address,
         subtotal,
         status: "pending",
         items: cartItems.map(item => ({

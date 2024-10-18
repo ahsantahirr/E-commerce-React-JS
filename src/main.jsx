@@ -33,8 +33,6 @@ const router = createBrowserRouter(
       <Route path='cart' element={<Cart />} />
       <Route path='orders' element={<Orders />} />
       <Route path='AdminPanel' element={<AdminPanel />} />
-
-
       <Route path='favourite' element={<Favorites />} />
 
     </Route>
