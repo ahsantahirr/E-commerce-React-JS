@@ -77,23 +77,23 @@ const [thankyoumodal, setthankyoumodal] = useState(false)
       await addDoc(collection(db, "orders"), orderData);
   
       // Send the order summary to WhatsApp and clear the cart
-      const message = `
-        *Order Summary*\n
-        *Name:* ${values.username}
-        *Email:* ${values.email}
-        *Phone:* ${values.number}
-        *Subtotal:* $${subtotal.toFixed(2)}
-        *Status:* Pending\n
-        *Items:*\n${orderData.items
-          .map(
-            (data, index) =>
-              `${index + 1}. ${data.title} - $${data.price} (Qty: ${data.quantity})`
-          )
-          .join("\n")}\n
-        *Total Amount:* $${subtotal.toFixed(2)}
-        `;
-      const encodedTxt = encodeURIComponent(message.trim());
-      window.open(`https://wa.me/923428180120?text=${encodedTxt}`, "_blank");
+      // const message = `
+      //   *Order Summary*\n
+      //   *Name:* ${values.username}
+      //   *Email:* ${values.email}
+      //   *Phone:* ${values.number}
+      //   *Subtotal:* $${subtotal.toFixed(2)}
+      //   *Status:* Pending\n
+      //   *Items:*\n${orderData.items
+      //     .map(
+      //       (data, index) =>
+      //         `${index + 1}. ${data.title} - $${data.price} (Qty: ${data.quantity})`
+      //     )
+      //     .join("\n")}\n
+      //   *Total Amount:* $${subtotal.toFixed(2)}
+      //   `;
+      // const encodedTxt = encodeURIComponent(message.trim());
+      // window.open(`https://wa.me/923428180120?text=${encodedTxt}`, "_blank");
       setthankyoumodal(true);
       clearCart();
       setIsModalOpen(false);

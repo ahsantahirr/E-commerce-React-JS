@@ -16,10 +16,10 @@ function Navbar({ onChange, onCategoryChange }) {
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
     const { user } = useContext(userContext)
     const { cartItems } = useContext(CartContext);
-   
+
     const [spin, setSpin] = useState(false);
- 
-    
+
+
     useEffect(() => {
         if (cartItems.length >= 0) {
             setSpin(true); // Start spinning
@@ -47,7 +47,7 @@ function Navbar({ onChange, onCategoryChange }) {
                 </NavLink>
 
                 <div className="flex md:order-2 gap-2 items-center">
-                    {user.isLogin ? (<button onClick={signout} className="text-white bg-gradient-to-r from-black via-black to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-black shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block">
+                    {user.isLogin ? (<button onClick={signout} className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
                         SignOut
                     </button>) : (<NavLink to="/signin" className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 hidden sm:block ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
                         SignIn
@@ -78,16 +78,16 @@ function Navbar({ onChange, onCategoryChange }) {
                         />
                     </div> */}
                     <Link to="cart">
-                      
-                            <Badge count={cartItems.length} className="mt-2">
-                                <ShoppingCartOutlined
-                                    className={`${theme ? 'text-white' : 'text-black'} ${spin ? 'animate-spin' : ''} `}
-                                    style={{ fontSize: 30 }}
-                                />
-                            </Badge>
-                      
+
+                        <Badge count={cartItems.length} className="mt-2">
+                            <ShoppingCartOutlined
+                                className={`${theme ? 'text-white' : 'text-black'} ${spin ? 'animate-spin' : ''} `}
+                                style={{ fontSize: 30 }}
+                            />
+                        </Badge>
+
                     </Link>
-                    <div className={`${user.isLogin?"flex" : "hidden"} md:order-2`}>
+                    <div className={`${user.isLogin ? "flex" : "hidden"} md:order-2`}>
 
                         <ProfileDropdown />
 
@@ -131,15 +131,17 @@ function Navbar({ onChange, onCategoryChange }) {
                         </li>
                         <li>
                             <NavLink to="/AdminPanel" className={({ isActive }) => ` py-2 px-3 
-                           ${user.email=="admin@gmail.com"? "block":"hidden"} ${theme ? "text-white" : "text-black"} 
+                           ${user.email == "admin@gmail.com" ? "block" : "hidden"} ${theme ? "text-white" : "text-black"} 
                             ${isActive ? (`underline ${theme ? "decoration-white" : "decoration-black "} decoration-2 font-bold underline-offset-8 `) : "text-black"}  md:p-0 `}>
                                 Admin Dashboard
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/signin" className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block sm:hidden ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
+                            {user.isLogin ? (<button onClick={signout} className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block md:hidden ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
+                                SignOut
+                            </button>) : (<NavLink to="/signin" className={` bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none  shadow-lg shadow-black-500/50 font-medium rounded-lg text-sm sm:px-5 sm:py-2.5 px-2 py-2 text-center me-2 mb-2 block md:hidden ${theme ? ("text-black from-white via-white to-white focus:ring-white") : ("text-white from-black via-black to-black focus:ring-black")}`}>
                                 SignIn
-                            </NavLink>
+                            </NavLink>)}
                         </li>
                         {/* <li>{user.isLogin ? <p className="text-white">{user.name}</p> : <p>no user</p>}
 

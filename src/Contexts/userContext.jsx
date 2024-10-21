@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../firebaseutils';
 import { doc, getDoc } from 'firebase/firestore';
-
+import defaultprofile from '../assets/defaultprofile.jpg'
 export const userContext = createContext();
 
 export function UserContextProvider({ children }) {
@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
         name: null,
         email: null,
         isLogin: false,
-        profile: null,
+        profile: defaultprofile,
     });
 
     // Check Firebase auth state and retrieve user data from Firestore
@@ -34,7 +34,7 @@ export function UserContextProvider({ children }) {
                     name: null,
                     email: null,
                     isLogin: false,
-                    profile: null
+                    profile: defaultprofile
                 });
             }
         });

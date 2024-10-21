@@ -1,11 +1,13 @@
 import { useState, useContext } from 'react';
 import { userContext } from '../Contexts/userContext';
+import defaultprofile from '../assets/defaultprofile.jpg'
 
 import { Link } from 'react-router-dom';
 function ProfileDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const { user } = useContext(userContext);
-
+// console.log(user);
+// console.log(user.profile)
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
@@ -23,7 +25,7 @@ function ProfileDropdown() {
                     <span className="sr-only">Open user menu</span>
                     <img
                         className="w-8 h-8 rounded-full"
-                        src={user.profile || "default-profile-pic-url"} // Show default profile if not available
+                        src={user.profile || defaultprofile} // Show default profile if not available
                         alt="user photo"
                     />
                 </button>
@@ -47,6 +49,7 @@ function ProfileDropdown() {
                             >
                                 Your Orders
                             </Link>
+                            
                         </li>
                         <li>
                             <a

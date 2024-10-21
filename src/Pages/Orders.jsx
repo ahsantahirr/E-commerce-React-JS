@@ -9,7 +9,7 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
   const { user } = useContext(userContext);
-  console.log("user", user);
+  // console.log("user", user);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -51,7 +51,7 @@ function Orders() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto my-8 p-4">
+    <div className="max-w-4xl mx-auto my-8 p-4 h-full">
       <h2 className="text-3xl font-bold mb-6 text-center">Your Orders</h2>
       {orders.length === 0 ? (
         <p className="text-center text-gray-500">No orders found.</p>
@@ -59,7 +59,7 @@ function Orders() {
         orders.map((order, index) => (
           <div
             key={index}
-            className="bg-white shadow-md rounded-lg mb-6 p-6 border border-gray-200"
+            className="bg-white shadow-md rounded-lg mb-6 p-6 border border-gray-200 h-full"
           >
             <h3 className="text-xl font-semibold mb-4">Order #{index + 1}</h3>
             <p className="text-lg mb-2">Subtotal: ${order.subtotal}</p>

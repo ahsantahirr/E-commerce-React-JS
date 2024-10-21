@@ -26,7 +26,7 @@ export const storage = getStorage(app);
 
 
 // Add Firestore initialization
-console.log(app)
+// console.log(app)
 
 export{auth,signInWithPopup, GoogleAuthProvider, ref, uploadBytes, getDownloadURL , addDoc, collection }
 

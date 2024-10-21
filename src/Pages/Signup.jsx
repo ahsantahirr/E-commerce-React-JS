@@ -178,14 +178,20 @@ import { createUserWithEmailAndPassword, signInWithPopup, onAuthStateChanged } f
 import { auth, googleProvider, db } from '../firebaseutils';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { userContext } from '../Contexts/userContext';
+import { themeContext } from '../Contexts/Themecontext';
+
+
+import { ColorRing } from 'react-loader-spinner';
 
 function Signup() {
     const navigate = useNavigate();
     const { setUser } = useContext(userContext);
+    const { theme } = useContext(themeContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         // Check if user is already logged in on page load
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -209,6 +215,7 @@ function Signup() {
     // Handle form submission for email and password sign-up
     const onsubmit = (e) => {
         e.preventDefault();
+        setLoading(true)
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
                 const user = result.user;
@@ -224,9 +231,13 @@ function Signup() {
                     isLogin: true,
                     profile: null
                 });
+                setLoading(false)
                 navigate("/");
             })
-            .catch((err) => alert(err.message));
+            .catch((error) => {
+                alert(error.message); 
+                setLoading(false)
+              });
     };
 
     // Handle Google sign-in
@@ -258,50 +269,51 @@ function Signup() {
     };
 
     return (
-        <div className="flex flex-col justify-center sm:h-screen p-4 h-full overflow-hidden font-poppins">
-            <div className="text-center mt-10 flex justify-center">
-                <Link href="#" className="flex items-center text-2xl font-semibold text-gray-900">
-                    <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
-                    ReactStore
-                </Link>
-            </div>
-            <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
-                <form onSubmit={onsubmit}>
-                    <div className="space-y-6">
-                        <div>
-                            <label className="text-gray-800 text-sm mb-2 block font-bold">Full Name</label>
-                            <input
-                                name="userName"
-                                type="text"
-                                className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
-                                placeholder="Enter your Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="text-gray-800 text-sm mb-2 block font-bold">Email Id</label>
-                            <input
-                                name="email"
-                                type="text"
-                                className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
-                                placeholder="Enter email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="text-gray-800 text-sm mb-2 block font-bold">Password</label>
-                            <input
-                                name="password"
-                                type="password"
-                                className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-amber-500"
-                                placeholder="Enter password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <div className="flex items-center">
+        <section className={`${theme ? "bg-black" : "bg-white"}`}>
+
+            <div className={`${theme ? "bg-black" : "bg-white"}flex flex-col justify-center sm:h-screen p-4 h-full overflow-hidden font-poppins`}>
+                <div className={`${theme ? "bg-black" : "bg-white"}text-center mt-10 flex justify-center`}>
+                    <Link href="#" className={`${theme ? "text-white" : "text-black"} flex items-center text-2xl font-semibold `}>
+                        <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
+                        ReactStore
+                    </Link>
+                </div>
+                <div className={`${theme ? "bg-black" : "bg-white"} max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8`}>
+                    <form onSubmit={onsubmit}>
+                        <div className="space-y-6">
+                            <div>
+                                <label className={`${theme ? "text-white" : "text-black"} text-sm mb-2 block font-bold`}>Full Name</label>
+                                <input
+                                    name="userName"
+                                    className={`bg-gray-50 border border-gray-300  rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 ${theme ? "bg-gray-900 text-gray-200" : "bg-white text-gray-900"}`}
+                                    placeholder="Enter your Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label className={`${theme ? "text-white" : "text-black"} text-sm mb-2 block font-bold`}>Email Id</label>
+                                <input
+                                    name="email"
+                                    type="text"
+                                    className={`bg-gray-50 border border-gray-300  rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 ${theme ? "bg-gray-900 text-gray-200" : "bg-white text-gray-900"}`}
+                                    placeholder="Enter email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label className={`${theme ? "text-white" : "text-black"} text-sm mb-2 block font-bold`}>Password</label>
+                                <input
+                                    name="password"
+                                    type="password"
+                                    className={`bg-gray-50 border border-gray-300  rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 ${theme ? "bg-gray-900 text-gray-200" : "bg-white text-gray-900"}`}
+                                    placeholder="Enter password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            {/* <div className="flex items-center">
                             <input
                                 id="remember-me"
                                 name="remember-me"
@@ -314,28 +326,52 @@ function Signup() {
                                     Terms and Conditions
                                 </Link>
                             </label>
+                        </div> */}
                         </div>
-                    </div>
-                    <div className="!mt-12">
-                        <button
-                            type="submit"
-                            className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-amber-500 hover:bg-amber-600 focus:outline-none"
-                        >
-                            Create an account
-                        </button>
-                    </div>
-                    <p className="text-gray-800 text-sm mt-6 text-center">
-                        Already have an account?{" "}
-                        <Link to="/signin" className="text-amber-600 font-semibold hover:underline ml-1">
-                            Login here
-                        </Link>
-                    </p>
-                </form>
-                <div className="!mt-12 flex justify-center">
-                    <Googlebutton onClick={google} />
+                        <div className="!mt-12">
+                            <button
+                                type="submit"
+                                className={`w-full ${theme ? "text-black bg-white" : "text-white bg-black"} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+                            >
+                                {loading ? (
+                                    theme?( <div className = "flex justify-center items-center" >
+                                        <ColorRing
+                                            visible={true}
+                                            height="40"
+                                            width="80"
+                                            ariaLabel="color-ring-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="color-ring-wrapper"
+                                            colors={["#849b87"]}
+                                        />
+                            </div>):
+                               ( <div className = "flex justify-center items-center" >
+                                        <ColorRing
+                                            visible={true}
+                                            height="40"
+                                            width="80"
+                                            ariaLabel="color-ring-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="color-ring-wrapper"
+                                            colors={["white", "white", "white", "white", "white"]}
+                                        />
+                            </div>))  : <p>Create Your Account</p>}
+
+                    </button>
                 </div>
+                <p className="text-gray-800 text-sm mt-6 text-center">
+                    Already have an account?{" "}
+                    <Link to="/signin" className="text-amber-600 font-semibold hover:underline ml-1">
+                        Login here
+                    </Link>
+                </p>
+            </form>
+            <div className="!mt-12 flex justify-center">
+                <Googlebutton onClick={google} />
             </div>
         </div>
+        </div >
+        </section >
     );
 }
 

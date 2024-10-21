@@ -7,6 +7,7 @@ import { auth, db } from '../firebaseutils';
 import { doc, getDoc } from 'firebase/firestore';
 import { userContext } from '../Contexts/userContext';
 import { themeContext } from '../Contexts/Themecontext';
+import { ColorRing } from 'react-loader-spinner';
 
 function Signin() {
   const { theme } = useContext(themeContext);
@@ -15,10 +16,11 @@ function Signin() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+const [loading, setLoading] = useState(false)
   // Handle form submission for email and password sign-in
   const onsubmit = (e) => {
     e.preventDefault();
+    setLoading(true)
     signInWithEmailAndPassword(auth, email, password)
       .then(async (result) => {
         const user = result.user;
@@ -36,6 +38,7 @@ function Signin() {
       })
       .catch((error) => {
         alert(error.message); // Handle error during sign-in
+        setLoading(false)
       });
   };
 
@@ -87,7 +90,7 @@ function Signin() {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 ${theme ? "bg-gray-900 text-gray-200" : "bg-white text-gray-900"}`}
+                  className={`bg-gray-50 border border-gray-300  rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 ${theme ? "bg-gray-900 text-gray-200" : "bg-white text-gray-900"}`}
                   placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -139,12 +142,38 @@ function Signin() {
                 </a>
               </div>
 
-              <button
-                type="submit"
-                className={`w-full ${theme ? "text-black bg-white" : "text-white bg-black"} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
-              >
-                Sign in
-              </button>
+              <div className="!mt-12">
+                            <button
+                                type="submit"
+                                className={`w-full ${theme ? "text-black bg-white" : "text-white bg-black"} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+                            >
+                                {loading ? (
+                                    theme?( <div className = "flex justify-center items-center" >
+                                        <ColorRing
+                                            visible={true}
+                                            height="40"
+                                            width="80"
+                                            ariaLabel="color-ring-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="color-ring-wrapper"
+                                            colors={["#849b87"]}
+                                        />
+                            </div>):
+                               ( <div className = "flex justify-center items-center" >
+                                        <ColorRing
+                                            visible={true}
+                                            height="40"
+                                            width="80"
+                                            ariaLabel="color-ring-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="color-ring-wrapper"
+                                            colors={["white", "white", "white", "white", "white"]}
+                                        />
+                            </div>))  : <p>Signin</p>}
+
+                    </button>
+                </div>
+            
               <p className="text-sm font-light text-gray-500">
                 Don’t have an account yet?{" "}
                 <Link

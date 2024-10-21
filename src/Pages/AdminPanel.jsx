@@ -57,7 +57,7 @@ function AdminOrders() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto my-10">
+    <div className="max-w-6xl mx-auto my-10 ">
       <h2 className="text-4xl font-bold text-gray-800 mb-8 text-center">Order Management</h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {orders.length === 0 ? (
@@ -66,9 +66,9 @@ function AdminOrders() {
           orders.map((order, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-xl p-6 border border-gray-200"
+              className="bg-white shadow-lg rounded-xl p-6 border border-gray-200 sm:h-96 sm:overflow-scroll sm:overflow-x-hidden "
             >
-              <div className="flex justify-between mb-4">
+              <div className="flex justify-between mb-4 ">
                 <h3 className="text-xl font-semibold text-gray-800">
                   Order #{index + 1}
                 </h3>

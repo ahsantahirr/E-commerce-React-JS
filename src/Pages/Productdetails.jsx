@@ -44,7 +44,7 @@ function Productdetails() {
             wrapperClass="color-ring-wrapper"
             colors={['#849b87']}
           />
-        </div>):(<section className="text-gray-600 body-font overflow-hidden font-poppins">
+        </div>):(<section className={`${theme ? "bg-black text-white" : "bg-white text-black" } body-font overflow-hidden font-poppins`}>
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <img
@@ -56,7 +56,7 @@ function Productdetails() {
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
                   {product.brand}
                 </h2>
-                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                <h1 className={`${theme ? "text-white" : "text-black"}text-gray-900 text-3xl title-font font-medium mb-1`}>
                   {product.title}
                 </h1>
                 <div className="flex mb-4">
@@ -171,7 +171,7 @@ function Productdetails() {
                   </div>
                 </div>
                 <div className="flex">
-                  <span className="title-font font-medium text-2xl text-gray-900">
+                  <span className={`${theme ? "text-white" : "text-black"}title-font font-medium text-2xl `}>
                     ${product.price}
                   </span>
                   <Button
