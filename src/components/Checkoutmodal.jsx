@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Input, Modal, Spin } from "antd";
 import { auth, googleProvider } from "../firebaseutils";
 import { signInWithPopup, signOut } from "firebase/auth";
-
+import { ColorRing } from "react-loader-spinner";
 const CheckOutModal = ({
   isModalOpen,
   handleOk,
@@ -52,7 +52,7 @@ const CheckOutModal = ({
   return (
     <div className="font-poppins">
       <Modal
-        title="Checkout Modal"
+        title="Checkout"
         open={isModalOpen}
         onOk={handleOk}
         closable={false}
@@ -64,11 +64,12 @@ const CheckOutModal = ({
             <h1 className="text-center my-5">
               Login to Save your Order and See Progress
             </h1>
-            <Button type="primary" onClick={handleGoogleLogin}>
+            <Button className="bg-black text-white hover:bg-gray-700" type="secondary" onClick={handleGoogleLogin}>
               Continue with Google
             </Button>
             <h1 className="text-center my-5">----- OR -----</h1>
-            <Button onClick={() => setContinueAsGuest(true)}>
+            <Button onClick={() => setContinueAsGuest(true)} type="secondary" className="hover:border-gray-950">
+
               Continue as a Guest
             </Button>
           </div>
@@ -90,7 +91,7 @@ const CheckOutModal = ({
               <Input type="email" disabled={!!user} />
             </Form.Item>
             <Form.Item name={"number"} label={"Phone Number"} required>
-              <Input type="number" />
+              <Input type="number" placeholder="Phone"/>
             </Form.Item>
             <Form.Item name={"address"} label={"Address"} required>
               <Input.TextArea placeholder="Address" />
@@ -98,7 +99,15 @@ const CheckOutModal = ({
             <Form.Item>
               {loading ? (
                 <div className="flex justify-center">
-                  <Spin /> {/* Ant Design Spinner */}
+                  <ColorRing
+                    visible={true}
+                    height="40"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={["#849b87"]}
+                  />
                 </div>
               ) : (
                 <Button

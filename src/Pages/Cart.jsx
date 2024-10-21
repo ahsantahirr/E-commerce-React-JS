@@ -291,7 +291,7 @@ const [thankyoumodal, setthankyoumodal] = useState(false)
                   className={`mt-6 w-full rounded-lg py-3 px-4 text-center text-base font-medium  hover:opacity-90 ${theme ? "text-black bg-white" : "bg-black text-white"}`}
                   onClick={showModal} // Show the modal on click
                 >
-                  Checkout
+                  Proceed to Checkout
                 </button>
 
                 <CheckOutModal

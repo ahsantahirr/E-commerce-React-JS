@@ -7,7 +7,7 @@ function ProfileDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const { user } = useContext(userContext);
 // console.log(user);
-// console.log(user.profile)
+console.log(user.profile)
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
